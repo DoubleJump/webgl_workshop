@@ -1,0 +1,1624 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"on",
+				"on_song_click"
+			],
+			[
+				"my",
+				"my_new_number"
+			],
+			[
+				"clas",
+				"classList"
+			],
+			[
+				"click",
+				"clicked_song"
+			],
+			[
+				"add",
+				"add_numbers"
+			],
+			[
+				"po",
+				"pointer-events"
+			],
+			[
+				"pro",
+				"project"
+			],
+			[
+				"tra",
+				"translateY()"
+			],
+			[
+				"mar",
+				"margin-top"
+			],
+			[
+				"max-",
+				"max-width"
+			],
+			[
+				"Game",
+				"GameState"
+			],
+			[
+				"initi",
+				"initial_asset_load_start"
+			],
+			[
+				"r",
+				"return"
+			],
+			[
+				"main",
+				"main_asset_load_start"
+			],
+			[
+				"asset",
+				"assets_loaded"
+			],
+			[
+				"ini",
+				"initial_assets_loaded"
+			],
+			[
+				"_Vec",
+				"_Vec4"
+			],
+			[
+				"set",
+				"set_uniform"
+			],
+			[
+				"clear",
+				"clear_screen"
+			],
+			[
+				"rend",
+				"render_target"
+			],
+			[
+				"about",
+				"about_gl"
+			],
+			[
+				"back",
+				"background"
+			],
+			[
+				"win",
+				"window"
+			],
+			[
+				"ap",
+				"aspect"
+			],
+			[
+				"L",
+				"LEVEL_2"
+			],
+			[
+				"scene",
+				"scenes_loaded"
+			],
+			[
+				"LEVE",
+				"LEVEL_1"
+			],
+			[
+				"ab",
+				"about_spin"
+			],
+			[
+				"is",
+				"is_touching"
+			],
+			[
+				"to",
+				"touches"
+			],
+			[
+				"ca",
+				"camera"
+			],
+			[
+				"pr",
+				"product_canvas"
+			],
+			[
+				"abou",
+				"about_state"
+			],
+			[
+				"spra",
+				"spray_can"
+			],
+			[
+				"_V",
+				"_Vec3"
+			],
+			[
+				"rotate",
+				"rotate_entity"
+			],
+			[
+				"Vec",
+				"Vec4"
+			],
+			[
+				"ts",
+				"test_canvas"
+			],
+			[
+				"font-",
+				"font-family"
+			],
+			[
+				"las",
+				"last_spray_charge"
+			],
+			[
+				"spay_c",
+				"spray_charge"
+			],
+			[
+				"get",
+				"get_url"
+			],
+			[
+				"as",
+				"asset_count"
+			],
+			[
+				"e",
+				"explode"
+			],
+			[
+				"view",
+				"view"
+			],
+			[
+				"LEVEL",
+				"LEVEL_END"
+			],
+			[
+				"v",
+				"volume_node"
+			],
+			[
+				"spray",
+				"spray_anchor"
+			],
+			[
+				"root",
+				"root_zoom"
+			],
+			[
+				"ba",
+				"bathroom"
+			],
+			[
+				"bas",
+				"baseB"
+			],
+			[
+				"ass",
+				"asset_count"
+			],
+			[
+				"asse",
+				"asset_count"
+			],
+			[
+				"ne",
+				"needs_update"
+			],
+			[
+				"assets",
+				"assets"
+			],
+			[
+				"norm",
+				"normal_matrix"
+			],
+			[
+				"game",
+				"game_info"
+			],
+			[
+				"vec",
+				"vec4"
+			],
+			[
+				"camea",
+				"camera"
+			],
+			[
+				"camera",
+				"camera_anchor"
+			],
+			[
+				"Ga",
+				"GameState"
+			],
+			[
+				"u",
+				"update"
+			],
+			[
+				"right",
+				"right_underarm"
+			],
+			[
+				"el",
+				"elevation"
+			],
+			[
+				"eas",
+				"easeOut"
+			],
+			[
+				"res",
+				"results"
+			],
+			[
+				"re",
+				"request"
+			],
+			[
+				"Res",
+				"Request"
+			],
+			[
+				"mat",
+				"mat4_mul"
+			],
+			[
+				"cam",
+				"cam_angle_x"
+			],
+			[
+				"angl",
+				"angle_x"
+			],
+			[
+				"in",
+				"instance_life"
+			],
+			[
+				"co",
+				"_color"
+			],
+			[
+				"Gam",
+				"GameScene"
+			],
+			[
+				"can",
+				"can_render"
+			],
+			[
+				"fade",
+				"fade_out"
+			],
+			[
+				"INTRO",
+				"INTRO_OUT"
+			],
+			[
+				"from",
+				"fromTo"
+			],
+			[
+				"no",
+				"normal"
+			],
+			[
+				"norma",
+				"normal_matrix"
+			],
+			[
+				"GA",
+				"GameState"
+			],
+			[
+				"ani",
+				"anims"
+			],
+			[
+				"base",
+				"basemesh"
+			],
+			[
+				"bact",
+				"bacteria_max"
+			],
+			[
+				"bac",
+				"bacteria_max"
+			],
+			[
+				"shak",
+				"shake_strength"
+			],
+			[
+				"sp",
+				"speed"
+			],
+			[
+				"score",
+				"score_indicator"
+			],
+			[
+				"over",
+				"overlay_t"
+			],
+			[
+				"g",
+				"game_info"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"shake",
+				"shake_v"
+			],
+			[
+				"color",
+				"color_scheme"
+			],
+			[
+				"polar",
+				"polar_src"
+			],
+			[
+				"scre",
+				"screen_center"
+			],
+			[
+				"scr",
+				"screen_y"
+			],
+			[
+				"rand",
+				"rand_float"
+			],
+			[
+				"strok",
+				"stroke-dasharray"
+			],
+			[
+				"spr",
+				"spray_anchor"
+			],
+			[
+				"lynx_",
+				"lynx_black"
+			],
+			[
+				"bacter",
+				"bacteria_cap"
+			],
+			[
+				"tex",
+				"text-align"
+			],
+			[
+				"char",
+				"charge_pos"
+			],
+			[
+				"AD",
+				"AD_polite_load"
+			],
+			[
+				"ad",
+				"adHeader"
+			],
+			[
+				"ex",
+				"exit_url"
+			],
+			[
+				"Grapk",
+				"Graphik-Bold"
+			],
+			[
+				"closer",
+				"closer_w"
+			],
+			[
+				"qu",
+				"querySelector"
+			],
+			[
+				"se",
+				"selector"
+			],
+			[
+				"anim",
+				"anim_data"
+			],
+			[
+				"dis",
+				"display"
+			],
+			[
+				"reset",
+				"reset_button"
+			],
+			[
+				"rec",
+				"record_button"
+			],
+			[
+				"inst",
+				"instance_position"
+			],
+			[
+				"_",
+				"_Vec3"
+			],
+			[
+				"cur",
+				"current_projected"
+			],
+			[
+				"st",
+				"start_location"
+			],
+			[
+				"de",
+				"delta"
+			],
+			[
+				"ve",
+				"vertex"
+			],
+			[
+				"start",
+				"start_location"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"lo",
+				"locations"
+			],
+			[
+				"curr",
+				"current_tick"
+			],
+			[
+				"time",
+				"timestamp"
+			],
+			[
+				"star",
+				"start_location"
+			],
+			[
+				"mat4_s",
+				"mat4_stack"
+			],
+			[
+				"LOG",
+				"LOG_LEVEL"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "js/app.js",
+			"settings":
+			{
+				"buffer_size": 3995,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/utils.js",
+			"settings":
+			{
+				"buffer_size": 1634,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 324,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "glsl/normals.glsl",
+			"settings":
+			{
+				"buffer_size": 260,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "glsl/matcap.glsl",
+			"settings":
+			{
+				"buffer_size": 531,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "glsl/wheels.glsl",
+			"settings":
+			{
+				"buffer_size": 163,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 129.0,
+		"last_filter": "Package Control: install",
+		"selected_items":
+		[
+			[
+				"Package Control: install",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: inst",
+				"Package Control: Install Package"
+			],
+			[
+				"i",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: dis",
+				"Package Control: Disable Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Disable Package"
+			],
+			[
+				"Package Control:d",
+				"Package Control: Disable Package"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Preferences: Browse Packages"
+			],
+			[
+				"da",
+				"DataConverter: to Python dict"
+			],
+			[
+				"data",
+				"DataConverter: to JSON"
+			],
+			[
+				"preyy",
+				"Pretty JSON: Minify (compress) JSON"
+			],
+			[
+				"",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: i",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 520.0
+	},
+	"console":
+	{
+		"height": 125.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			" import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) ",
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"import urllib.request,os; pr='Preferences.sublime-settings'; ip='ignored_packages'; n='Package Control'; s=sublime.load_settings(pr); ig=s.get(ip); ig.append(n); s.set(ip,ig); sublime.save_settings('Preferences.sublime-settings'); pf=n+'.sublime-package'; urllib.request.install_opener(urllib.request.build_opener(urllib.request.ProxyHandler())); by=urllib.request.urlopen('https://packagecontrol.io/'+pf.replace(' ','%20')).read(); open(os.path.join(sublime.installed_packages_path(),pf),'wb').write(by); ig.remove(n); s.set(ip,ig); sublime.save_settings(pr); print('Package Control: 3.0.0 upgrade successful!')",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/webdev/webgl_workshop"
+	],
+	"file_history":
+	[
+		"/C/webdev/webgl_workshop/.gitignore",
+		"/C/webdev/lynx/burst/src/glsl/matcap.glsl",
+		"/C/webdev/webgl/src/glsl/components/colour_normals.glslc",
+		"/C/webdev/three/js/input.js",
+		"/C/webdev/f2018/src/js/serialise.js",
+		"/C/webdev/three/app.js",
+		"/Users/gareth/Documents/Design/Unilever/Axe Packs/180214 DARK MATTER AEROSOL.obj",
+		"/Users/gareth/Documents/Design/Unilever/Axe Packs/180214 Polaris Firestarter Stick.obj",
+		"/Users/gareth/Documents/Design/Unilever/Axe Packs/180214 Galileo Male Roll On.obj",
+		"/Users/gareth/Sites/Yna/index.html",
+		"/Users/gareth/Sites/Yna/css/style.css",
+		"/Users/gareth/Sites/Yna/js/main.js",
+		"/Users/gareth/Desktop/JS_cheat_sheet.js",
+		"/Users/gareth/Desktop/aksjndoasndasnldasldnlaksnd.txt",
+		"/Users/gareth/Sites/Pages/lynx-game/ui/src/index.html",
+		"/Users/gareth/Sites/f2018/src/js/audio.js",
+		"/Users/gareth/Sites/f2018/src/js/ui.js",
+		"/Users/gareth/Sites/f2018/src/js/work.js",
+		"/Users/gareth/Sites/sc/index.html",
+		"/Users/gareth/Sites/f2018/src/js/flow.js",
+		"/Users/gareth/Sites/f2018/src/js/sound_cloud.js",
+		"/Users/gareth/Sites/f2018/src/js/app.js",
+		"/Users/gareth/Sites/sc/style.css",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/render.js",
+		"/Users/gareth/Sites/Pages/lynx-game/ui/src/components/Sound.js",
+		"/Users/gareth/Desktop/analyser.js",
+		"/Users/gareth/Sites/sc/email.txt",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/webgl.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/manifest.js",
+		"/Users/gareth/Desktop/gl_state.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/main.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/mesh.js",
+		"/Users/gareth/Sites/burst/build/style.css",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/render_target.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/main/glsl/can.glsl",
+		"/Users/gareth/Sites/Pages/lynx-game/src/main/glsl/final.glsl",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/shader.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/main/glsl/background.glsl",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/serialise.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/particles.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/input.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/debug.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/initial/matcap.glsl",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/texture.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/main/glsl/final.vs",
+		"/Users/gareth/Sites/f2018/src/js/texture.js",
+		"/Users/gareth/Sites/f2018/src/js/webgl.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/assets.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/audio.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/camera.js",
+		"/Users/gareth/Sites/Pages/lynx-game/build/js/gsap-lite.js",
+		"/Users/gareth/Downloads/greensock-js 2/src/minified/plugins/RoundPropsPlugin.min.js",
+		"/Users/gareth/Downloads/greensock-js 2/src/minified/plugins/CSSPlugin.min.js",
+		"/Users/gareth/Downloads/greensock-js 2/src/minified/plugins/TextPlugin.min.js",
+		"/Users/gareth/Downloads/greensock-js 2/src/minified/easing/EasePack.min.js",
+		"/Users/gareth/Downloads/greensock-js 2/TweenLite.min.js",
+		"/Users/gareth/Downloads/greensock-js 2/TimelineLite.min.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/projection.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/math.js",
+		"/Users/gareth/Sites/f2018/build/style.css",
+		"/Users/gareth/Downloads/f2018/src/js/webgl.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/entity.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/quaternion.js",
+		"/Users/gareth/Sites/Pages/lynx-game/build.py",
+		"/Users/gareth/Sites/Pages/lynx-game/ui/src/components/App/App.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/main/glsl/bacteria.glsl",
+		"/Users/gareth/Sites/burst/src/js/webgl.js",
+		"/Users/gareth/Sites/Pages/lynx-game/ui/src/routes/main-menu.js",
+		"/Users/gareth/Sites/Pages/lynx-game/ui/src/constants.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/utils.js",
+		"/Users/gareth/Sites/burst/src/js/app.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/js/time.js",
+		"/Users/gareth/Sites/Pages/lynx-game/ui/src/components/Paused.js",
+		"/Users/gareth/Sites/Pages/lynx-game/src/glsl/noise.glsl",
+		"/Users/gareth/Sites/Pages/lynx-game/src/glsl/fade.glsl",
+		"/Users/gareth/Sites/Pages/lynx-game/src/glsl/matcap.glsl",
+		"/Users/gareth/Sites/Pages/lynx-game/src/glsl/menu.glsl",
+		"/Users/gareth/Sites/burst/build/index.html",
+		"/Users/gareth/Sites/Pages/lynx-game/src/glsl/spray_hit.glsl",
+		"/Users/gareth/Sites/Pages/lynx-game/ui/node_modules/caniuse-lite/data/features/canvas.js",
+		"/Users/gareth/Sites/ghd-ad-banners/build_production/easygym_rejoining/160x600/160x600.html",
+		"/Users/gareth/Sites/ghd-ad-banners/build_production/easygym_rejoining/300x250/300x250.html",
+		"/Users/gareth/Sites/ghd-ad-banners/build_production/easygym_rejoining/300x600/300x600.html",
+		"/Users/gareth/Sites/ghd-ad-banners/build_production/easygym_rejoining/320x50/320x50.html",
+		"/Users/gareth/Sites/ghd-ad-banners/build_production/easygym_rejoining/728x90/728x90.html",
+		"/Users/gareth/Sites/Pages/lynx-game/frontend-2.0/src/components/App/App.js",
+		"/Users/gareth/Sites/Pages/lynx-game/frontend-2.0/src/routes/leaderboard.js",
+		"/Users/gareth/Sites/ghd-ad-banners/src/easygym_rejoining/160x600/160x600.html",
+		"/Users/gareth/Sites/Pages/lynx-game/.gitignore",
+		"/Users/gareth/Sites/Pages/lynx-game/frontend-2.0/src/routes/main-menu.js",
+		"/Users/gareth/Sites/burst/src/js/mesh.js",
+		"/Users/gareth/Sites/burst/src/js/quaternion.js",
+		"/Users/gareth/Sites/burst/src/js/mat3.js",
+		"/Users/gareth/Sites/burst/src/js/serialise.js",
+		"/Users/gareth/Sites/burst/src/js/random.js",
+		"/Users/gareth/Sites/burst/src/js/texture.js",
+		"/Users/gareth/Sites/burst/src/js/assets.js",
+		"/Users/gareth/Sites/burst/src/js/projection.js",
+		"/Users/gareth/Sites/burst/src/js/mat4.js",
+		"/Users/gareth/Sites/burst/src/js/entity.js",
+		"/Users/gareth/Sites/burst/src/js/manifest.js",
+		"/Users/gareth/Sites/burst/src/js/math.js",
+		"/Users/gareth/Sites/burst/src/js/vector.js",
+		"/Users/gareth/Sites/ephemerides/app.js",
+		"/Users/gareth/Sites/burst/src/js/debug.js",
+		"/Users/gareth/Sites/burst/src/glsl/background.glsl",
+		"/Users/gareth/Sites/burst/src/glsl/spark.glsl",
+		"/Users/gareth/Sites/burst/src/glsl/spray_hit.glsl",
+		"/Users/gareth/Sites/burst/src/glsl/bacteria.glsl",
+		"/Users/gareth/Sites/burst/src/glsl/basemesh.glsl",
+		"/Users/gareth/Sites/burst/src/js/input.js",
+		"/Users/gareth/Sites/burst/src/html/index.html",
+		"/Users/gareth/Sites/burst/src/js/levels.js",
+		"/Users/gareth/Sites/burst/src/glsl/zones.glsl",
+		"/Users/gareth/Sites/burst/src/js/audio.js",
+		"/Users/gareth/Sites/burst/src/js/color_schemes.js",
+		"/Users/gareth/Sites/ephemerides/index.html",
+		"/Users/gareth/Sites/burst/src/js/main.js",
+		"/Users/gareth/Desktop/stv-logo-landscape.svg",
+		"/Users/gareth/Sites/burst/src/glsl/noise.glsl",
+		"/Users/gareth/Sites/burst/server.bat",
+		"/Users/gareth/Sites/burst/src/js/macros.js",
+		"/Users/gareth/Sites/burst/src/js/shader.js",
+		"/Users/gareth/Sites/burst/src/js/utils.js",
+		"/Users/gareth/Sites/burst/src/js/time.js",
+		"/Users/gareth/Sites/burst/src/glsl/matcap.glsl",
+		"/Users/gareth/Sites/burst/src/glsl/components/simplex_noise.glslc",
+		"/Users/gareth/Sites/burst/build.py"
+	],
+	"find":
+	{
+		"height": 60.0
+	},
+	"find_in_files":
+	{
+		"height": 111.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "js/app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3995,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								422,
+								422
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 870.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "js/utils.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1634,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								266,
+								266
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 171.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 324,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								33,
+								33
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "glsl/normals.glsl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 260,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								146,
+								146
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "glsl/matcap.glsl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 531,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								531
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "glsl/wheels.glsl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 163,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								137,
+								137
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 41.0
+	},
+	"input":
+	{
+		"height": 41.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": false,
+	"output.exec":
+	{
+		"height": 184.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/User/gazzyb.sublime-build",
+	"project": "project.sublime-project",
+	"replace":
+	{
+		"height": 76.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"uti",
+				"js\\utils.js"
+			],
+			[
+				"in",
+				"js\\input.js"
+			],
+			[
+				"ui",
+				"js\\utils.js"
+			],
+			[
+				"inde",
+				"index.html"
+			],
+			[
+				"app",
+				"app.js"
+			],
+			[
+				"soun",
+				"ui/src/components/Sound.js"
+			],
+			[
+				"aud",
+				"src/js/audio.js"
+			],
+			[
+				"gl_draw",
+				"src/js/gl_draw.js"
+			],
+			[
+				"render",
+				"src/js/render.js"
+			],
+			[
+				"matcap",
+				"src/initial/matcap.glsl"
+			],
+			[
+				"glsl",
+				"src/initial/matcap.glsl"
+			],
+			[
+				"input",
+				"src/js/input.js"
+			],
+			[
+				"debug",
+				"src/js/debug.js"
+			],
+			[
+				"bui",
+				"build.py"
+			],
+			[
+				"final",
+				"src/main/glsl/final.glsl"
+			],
+			[
+				"text",
+				"src/js/texture.js"
+			],
+			[
+				"mani",
+				"src/js/manifest.js"
+			],
+			[
+				"main",
+				"src/js/main.js"
+			],
+			[
+				"assets",
+				"src/js/assets.js"
+			],
+			[
+				"ass",
+				"src/js/assets.js"
+			],
+			[
+				"sha",
+				"src/js/shader.js"
+			],
+			[
+				"can",
+				"src/main/glsl/can.glsl"
+			],
+			[
+				"seri",
+				"src/js/serialise.js"
+			],
+			[
+				"audio",
+				"src/js/audio.js"
+			],
+			[
+				"sound",
+				"ui/src/components/Sound.js"
+			],
+			[
+				"mesh",
+				"src/js/mesh.js"
+			],
+			[
+				"shad",
+				"src/js/shader.js"
+			],
+			[
+				"shader",
+				"src/js/shader.js"
+			],
+			[
+				"tex",
+				"src/js/texture.js"
+			],
+			[
+				"back",
+				"src/main/glsl/background.glsl"
+			],
+			[
+				"buil",
+				"build.py"
+			],
+			[
+				"index.html",
+				"ui/src/index.html"
+			],
+			[
+				"math",
+				"src/js/math.js"
+			],
+			[
+				"deb",
+				"src/js/debug.js"
+			],
+			[
+				"pro",
+				"src/js/projection.js"
+			],
+			[
+				"matca",
+				"src/initial/matcap.glsl"
+			],
+			[
+				"can.",
+				"src/main/glsl/can.glsl"
+			],
+			[
+				"camera",
+				"src/js/camera.js"
+			],
+			[
+				"qua",
+				"src/js/quaternion.js"
+			],
+			[
+				"ent",
+				"src/js/entity.js"
+			],
+			[
+				"debu",
+				"src/js/debug.js"
+			],
+			[
+				"inpu",
+				"src/js/input.js"
+			],
+			[
+				"util",
+				"src/js/utils.js"
+			],
+			[
+				"bacter",
+				"src/main/glsl/bacteria.glsl"
+			],
+			[
+				"bac",
+				"src/main/glsl/bacteria.glsl"
+			],
+			[
+				"part",
+				"src/js/particles.js"
+			],
+			[
+				"time",
+				"src/js/time.js"
+			],
+			[
+				"came",
+				"src/js/camera.js"
+			],
+			[
+				"par",
+				"src/js/particles.js"
+			],
+			[
+				"au",
+				"src/js/audio.js"
+			],
+			[
+				"we",
+				"src/js/webgl.js"
+			],
+			[
+				"en",
+				"src/js/entity.js"
+			],
+			[
+				"noise",
+				"src/glsl/noise.glsl"
+			],
+			[
+				"fade",
+				"src/glsl/fade.glsl"
+			],
+			[
+				"web",
+				"src/js/webgl.js"
+			],
+			[
+				"level",
+				"src/js/levels.js"
+			],
+			[
+				"webgl",
+				"src/js/webgl.js"
+			],
+			[
+				"canvas",
+				"ui/node_modules/caniuse-lite/data/features/canvas.js"
+			],
+			[
+				"webg",
+				"src/js/webgl.js"
+			],
+			[
+				"mat4",
+				"src/js/mat4.js"
+			],
+			[
+				"quat",
+				"src/js/quaternion.js"
+			],
+			[
+				"mat3",
+				"src/js/mat3.js"
+			],
+			[
+				"serial",
+				"src/js/serialise.js"
+			],
+			[
+				"rand",
+				"src/js/random.js"
+			],
+			[
+				"asse",
+				"src/js/assets.js"
+			],
+			[
+				"sty",
+				"build/style.css"
+			],
+			[
+				"m",
+				"src/js/mat4.js"
+			],
+			[
+				"p",
+				"src/js/projection.js"
+			],
+			[
+				"enti",
+				"src/js/entity.js"
+			],
+			[
+				"proj",
+				"src/js/projection.js"
+			],
+			[
+				"vector",
+				"src/js/vector.js"
+			],
+			[
+				"de",
+				"src/js/debug.js"
+			],
+			[
+				"rad",
+				"src/js/random.js"
+			],
+			[
+				"leve",
+				"src/js/levels.js"
+			],
+			[
+				"st",
+				"build/style.css"
+			],
+			[
+				"col",
+				"src/js/color_schemes.js"
+			],
+			[
+				"ser",
+				"src/js/serialise.js"
+			],
+			[
+				"",
+				"src/js/projection.js"
+			],
+			[
+				"entity",
+				"src/js/entity.js"
+			],
+			[
+				"mat",
+				"src/js/mat4.js"
+			],
+			[
+				"vec",
+				"src/js/vector.js"
+			],
+			[
+				"spark",
+				"src/glsl/spark.glsl"
+			],
+			[
+				"spar",
+				"src/glsl/spark.glsl"
+			],
+			[
+				"spray",
+				"src/glsl/spray_hit.glsl"
+			],
+			[
+				"tim",
+				"src/js/time.js"
+			],
+			[
+				"simpl",
+				"src/glsl/components/simplex_noise.glslc"
+			],
+			[
+				"qu",
+				"src/js/quaternion.js"
+			],
+			[
+				"colo",
+				"src/js/colour_conversion.js"
+			],
+			[
+				"over",
+				"src/glsl/overlay.glsl"
+			],
+			[
+				"mat2",
+				"src/glsl/components/mat2.glslc"
+			],
+			[
+				"ut",
+				"src/js/utils.js"
+			],
+			[
+				"color",
+				"src/js/color_schemes.js"
+			],
+			[
+				"inp",
+				"src/js/input.js"
+			],
+			[
+				"ca",
+				"src/js/camera.js"
+			],
+			[
+				"basi",
+				"src/glsl/basic.glsl"
+			],
+			[
+				"anim",
+				"src/html/animation.html"
+			],
+			[
+				"gl_",
+				"src\\js\\gl_draw.js"
+			],
+			[
+				"quater",
+				"src\\js\\quaternion.js"
+			],
+			[
+				"rig",
+				"src\\js\\rig.js"
+			],
+			[
+				"cam",
+				"src\\js\\camera.js"
+			],
+			[
+				"gl",
+				"src\\js\\gl_draw.js"
+			],
+			[
+				"styl",
+				"build\\css\\style.css"
+			],
+			[
+				"as",
+				"src\\js\\assets.js"
+			],
+			[
+				"seria",
+				"src\\js\\serialise.js"
+			],
+			[
+				"build",
+				"build.bat"
+			],
+			[
+				"inst",
+				"src/glsl/instance.glsl"
+			],
+			[
+				"cube",
+				"src/js/cube.js"
+			],
+			[
+				"map",
+				"src/js/map.js"
+			],
+			[
+				"index",
+				"src/html/index.html"
+			],
+			[
+				"flat",
+				"src/glsl/flat.glsl"
+			],
+			[
+				"entit",
+				"src\\js\\entity.js"
+			],
+			[
+				"grad",
+				"src/glsl/grading.glsl"
+			],
+			[
+				"quad",
+				"src/js/quad.js"
+			],
+			[
+				"bu",
+				"build.sh"
+			],
+			[
+				"ve",
+				"src/js/vector.js"
+			],
+			[
+				"css",
+				"build/css/style.css"
+			],
+			[
+				"sta",
+				"src\\js\\stack.js"
+			],
+			[
+				"py",
+				"build.py"
+			],
+			[
+				"dec",
+				"src\\js\\deck.js"
+			],
+			[
+				"cir",
+				"src\\assets\\circle_mask.glsl"
+			],
+			[
+				"pr",
+				"src\\js\\webgl\\projection.js"
+			],
+			[
+				"circ",
+				"src\\assets\\circle_mask.glsl"
+			],
+			[
+				"ran",
+				"src\\js\\webgl\\random.js"
+			],
+			[
+				"te",
+				"src\\js\\webgl\\texture.js"
+			],
+			[
+				"re",
+				"src\\js\\webgl\\render_target.js"
+			],
+			[
+				"ene",
+				"src\\js\\webgl\\entity.js"
+			],
+			[
+				"draw",
+				"src\\js\\webgl\\gl_draw.js"
+			],
+			[
+				"html",
+				"src\\html\\app.html"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 750.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"C:\\webdev\\f2018\\project.sublime-project"
+			]
+		],
+		"width": 570.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 200.0,
+	"status_bar_visible": false,
+	"template_settings":
+	{
+	}
+}
