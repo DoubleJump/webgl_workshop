@@ -19,6 +19,12 @@ function preload()
 
 	load_texture('orange', 'img/mc_orange.jpg'),
 	load_texture('blue', 'img/mc_blue.jpg'),
+	load_texture('pattern', 'img/pattern.jpg'),
+
+	load_shader('background', 'glsl/background.glsl',
+	{
+		colour: {value: new THREE.Vector4(0.2,0.1,0.3,1) },
+	});
 
 	load_shader('normals', 'glsl/normals.glsl');
 	load_shader('matcap', 'glsl/matcap.glsl',
@@ -28,6 +34,10 @@ function preload()
 	load_shader('metal', 'glsl/wheels.glsl', 
 	{
 		colour: {value: new THREE.Vector4(1,0,0,1) },
+	});
+	load_shader('artwork', 'glsl/base.glsl',
+	{
+		image: {value: null},
 	});
 
 	requestAnimationFrame(update);
@@ -39,20 +49,26 @@ function init()
 	app.input = Input();
 	app.last_time = performance.now(); //@todo replace with Threejs clock thingy
 
-	app.camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10);
-	app.camera.position.z = 1;
+	app.camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 50);
+	app.camera.position.z = 3;
 	app.scene = new THREE.Scene();
 
 	app.carousel = 
 	{
 		root: new THREE.Group(),
 		items: [],
+		background: null,
 		index: 0,
 	};
 
 	var meshes = app.assets.meshes;
 	var materials = app.assets.materials;
 	var textures = app.assets.textures;
+
+	meshes.quad = new THREE.PlaneGeometry(2, 2);
+	materials.background.depthTest = false;
+	app.carousel.background = new THREE.Mesh(meshes.quad, materials.background);
+	app.scene.add(app.carousel.background);
 
 	var num_skateboards = 6;
 	for(var i = 0; i < num_skateboards; ++i)
@@ -61,7 +77,7 @@ function init()
 
 		skateboard.wheel_colour = new THREE.Vector4(1,0,0,1);
 		skateboard.truck_colour = new THREE.Vector4(0,0,1,1);
-		skateboard.base_texture = textures.blue;
+		skateboard.base_texture = textures.pattern;
 
 		var wheel_mat = materials.metal.clone();
 		wheel_mat.uniforms.colour.value = skateboard.wheel_colour;
@@ -69,18 +85,16 @@ function init()
 		var truck_mat = materials.metal.clone();
 		truck_mat.uniforms.colour.value = skateboard.truck_colour;
 
-		/*
 		var base_mat = materials.artwork.clone();
 		base_mat.uniforms.image.value = skateboard.base_texture;
-		*/
 
 		skateboard.top = new THREE.Mesh(meshes.top, materials.normals);
-		skateboard.base = new THREE.Mesh(meshes.base, materials.normals);
+		skateboard.base = new THREE.Mesh(meshes.base, base_mat);
 		skateboard.wheels = new THREE.Mesh(meshes.wheels, wheel_mat);
 		skateboard.trucks = new THREE.Mesh(meshes.trucks, truck_mat);
 
 		var group = new THREE.Group();
-		group.position.x = i * 0.5;
+		group.position.x = i * 1.0;
 		group.rotation.z = 90 * THREE.Math.DEG2RAD;
 		group.parent = app.carousel.root;
 		group.add(skateboard.top);
@@ -128,12 +142,13 @@ function update(t)
 	if(key_down(Keys.RIGHT)) carousel.index ++;
 
 	carousel.index = clamp(carousel.index, 0, carousel.items.length-1);
-	carousel.root.position.x = THREE.Math.lerp(carousel.root.position.x, -carousel.index * 0.5, dt * 5.0);
+	carousel.root.position.x = THREE.Math.lerp(carousel.root.position.x, -carousel.index * 1.0, dt * 5.0);
 
 
 	if(key_down(Keys.Y))
 	{
-		carousel.items[2].wheel_colour.set(0,1,0,1);
+		var current_board = carousel.items[carousel.index];
+		current_board.wheel_colour.set(0,1,0,1);
 	}
 
 	for(var i = 0; i < carousel.items.length; ++i)
@@ -143,15 +158,17 @@ function update(t)
 		var scale = item.scale.x;
 		if(i === carousel.index)
 		{
-			scale = THREE.Math.lerp(scale, 1.0, dt * 5.0);
-			item.scale.setScalar(scale);
-			item.rotation.y = THREE.Math.lerp(item.rotation.y, 30.0 * THREE.Math.DEG2RAD, dt * 5.0);
+			//scale = THREE.Math.lerp(scale, 1.0, dt * 5.0);
+			//item.scale.setScalar(scale);
+			item.position.z = THREE.Math.lerp(item.position.z, 1.0, dt * 5.0);
+			item.rotation.y = THREE.Math.lerp(item.rotation.y, -30.0 * THREE.Math.DEG2RAD, dt * 5.0);
 		}
 		else
 		{
-			scale = THREE.Math.lerp(scale, 0.5, dt * 5.0);
-			item.scale.setScalar(scale);
-			item.rotation.y = THREE.Math.lerp(item.rotation.y, 0.0, dt * 5.0);
+			//scale = THREE.Math.lerp(scale, 0.5, dt * 5.0);
+			//item.scale.setScalar(scale);
+			item.position.z = THREE.Math.lerp(item.position.z, 0.0, dt * 5.0);
+			item.rotation.y = THREE.Math.lerp(item.rotation.y, 30 * THREE.Math.DEG2RAD, dt * 5.0);
 		}
 	}
 	

@@ -6,7 +6,7 @@ function clamp(a, min, max)
 }
 
 
-function load_shader(name, url, uniforms)
+function load_shader(name, url, uniforms, options)
 {
 	app.assets.load_count++;
 
