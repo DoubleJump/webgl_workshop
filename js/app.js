@@ -12,32 +12,35 @@ var app =
 
 function preload()
 {
+	// MESHES //
 	load_mesh('base', 'json/skateboard_base.json');
 	load_mesh('top', 'json/skateboard_top.json');
 	load_mesh('trucks', 'json/skateboard_trucks.json');
 	load_mesh('wheels', 'json/skateboard_wheels.json');
 
-	load_texture('orange', 'img/mc_orange.jpg'),
-	load_texture('blue', 'img/mc_blue.jpg'),
+	// TEXTURES //
+	load_texture('blank', 'img/blank.png'),
+	load_texture('lightmap', 'img/lightmap.png'),
+	load_texture('black', 'img/mc_black.jpg'),
+	load_texture('grey', 'img/mc_grey.jpg'),
 	load_texture('pattern', 'img/pattern.jpg'),
+
+	// SHADERS //
+	load_shader('normals', 'glsl/normals.glsl');
 
 	load_shader('background', 'glsl/background.glsl',
 	{
-		colour: {value: new THREE.Vector4(0.2,0.1,0.3,1) },
+		colour: {value: new THREE.Vector3(0.2,0.1,0.3,1) },
 	});
 
-	load_shader('normals', 'glsl/normals.glsl');
-	load_shader('matcap', 'glsl/matcap.glsl',
-	{
-		matcap: {value: null},
-	});
+	load_shader('overlay', 'glsl/vignette.glsl');
+
 	load_shader('metal', 'glsl/wheels.glsl', 
 	{
-		colour: {value: new THREE.Vector4(1,0,0,1) },
-	});
-	load_shader('artwork', 'glsl/base.glsl',
-	{
-		image: {value: null},
+		colour: {value: new THREE.Vector4(1,1,1,1) },
+		matcap: {value: null},
+		lightmap: {value: null},
+		diffuse: {value: null},
 	});
 
 	requestAnimationFrame(update);
@@ -49,7 +52,7 @@ function init()
 	app.input = Input();
 	app.last_time = performance.now(); //@todo replace with Threejs clock thingy
 
-	app.camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 50);
+	app.camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 100);
 	app.camera.position.z = 3;
 	app.scene = new THREE.Scene();
 
@@ -59,7 +62,15 @@ function init()
 		items: [],
 		background: null,
 		index: 0,
+		gap: 3.4,
 	};
+
+	app.colours = 
+	[
+		new THREE.Vector3(0.1,0.1,0.11),
+		new THREE.Vector3(0.3,0.14,0.18),
+		new THREE.Vector3(0.1,0.12,0.42),
+	];
 
 	var meshes = app.assets.meshes;
 	var materials = app.assets.materials;
@@ -70,38 +81,52 @@ function init()
 	app.carousel.background = new THREE.Mesh(meshes.quad, materials.background);
 	app.scene.add(app.carousel.background);
 
-	var num_skateboards = 6;
+	/*
+	materials.physical = new THREE.MeshPhysicalMaterial(
+	{
+		color: '#FFFFFF',
+	});
+
+	var light = new THREE.DirectionalLight(0xffffff, 0.8);
+	light.position.set(3.0,3.0,-0.2);
+	app.scene.add(light);
+	*/
+
+	var num_skateboards = 3;
 	for(var i = 0; i < num_skateboards; ++i)
 	{
 		var skateboard = {};
 
-		skateboard.wheel_colour = new THREE.Vector4(1,0,0,1);
-		skateboard.truck_colour = new THREE.Vector4(0,0,1,1);
-		skateboard.base_texture = textures.pattern;
-
-		var wheel_mat = materials.metal.clone();
-		wheel_mat.uniforms.colour.value = skateboard.wheel_colour;
-
-		var truck_mat = materials.metal.clone();
-		truck_mat.uniforms.colour.value = skateboard.truck_colour;
-
-		var base_mat = materials.artwork.clone();
-		base_mat.uniforms.image.value = skateboard.base_texture;
-
-		skateboard.top = new THREE.Mesh(meshes.top, materials.normals);
-		skateboard.base = new THREE.Mesh(meshes.base, base_mat);
-		skateboard.wheels = new THREE.Mesh(meshes.wheels, wheel_mat);
-		skateboard.trucks = new THREE.Mesh(meshes.trucks, truck_mat);
-
 		var group = new THREE.Group();
-		group.position.x = i * 1.0;
+		skateboard.group = group;
+		group.position.x = i * app.carousel.gap;
+		//group.rotation.x = 30 * THREE.Math.DEG2RAD;
 		group.rotation.z = 90 * THREE.Math.DEG2RAD;
 		group.parent = app.carousel.root;
+
+		var top_mat = materials.metal.clone();
+		top_mat.uniforms.lightmap.value = textures.lightmap;
+		top_mat.uniforms.diffuse.value = textures.blank;
+		skateboard.top = new THREE.Mesh(meshes.top, top_mat);
 		group.add(skateboard.top);
+
+		var base_mat = materials.metal.clone();
+		base_mat.uniforms.lightmap.value = textures.lightmap;
+		base_mat.uniforms.diffuse.value = textures.pattern;
+		skateboard.base = new THREE.Mesh(meshes.base, base_mat);
 		group.add(skateboard.base);
+
+		var wheels_mat = materials.metal.clone();
+		wheels_mat.uniforms.lightmap.value = textures.lightmap;
+		wheels_mat.uniforms.diffuse.value = textures.blank;
+		skateboard.wheels = new THREE.Mesh(meshes.wheels, wheels_mat);
 		group.add(skateboard.wheels);
+
+		var trucks_mat = materials.metal.clone();
+		trucks_mat.uniforms.lightmap.value = textures.lightmap;
+		trucks_mat.uniforms.diffuse.value = textures.blank;
+		skateboard.trucks = new THREE.Mesh(meshes.trucks, trucks_mat);
 		group.add(skateboard.trucks);
-		skateboard.group = group;
 
 		app.carousel.items.push(skateboard);
 		app.carousel.root.add(group);
@@ -109,7 +134,13 @@ function init()
 
 	app.scene.add(app.carousel.root);
 
-	app.renderer = new THREE.WebGLRenderer({antialias: false});
+	/*
+	app.carousel.overlay = new THREE.Mesh(meshes.quad, materials.overlay);
+	materials.overlay.depthTest = false;
+	app.scene.add(app.carousel.overlay);
+	*/
+
+	app.renderer = new THREE.WebGLRenderer({antialias: true});
 	app.renderer.setSize(window.innerWidth, window.innerHeight);
 	document.body.appendChild(app.renderer.domElement);
 
@@ -142,13 +173,13 @@ function update(t)
 	if(key_down(Keys.RIGHT)) carousel.index ++;
 
 	carousel.index = clamp(carousel.index, 0, carousel.items.length-1);
-	carousel.root.position.x = THREE.Math.lerp(carousel.root.position.x, -carousel.index * 1.0, dt * 5.0);
+	carousel.root.position.x = THREE.Math.lerp(carousel.root.position.x, -carousel.index * carousel.gap, dt * 5.0);
 
 
 	if(key_down(Keys.Y))
 	{
 		var current_board = carousel.items[carousel.index];
-		current_board.wheel_colour.set(0,1,0,1);
+		current_board.wheels.material.uniforms.colour.value.set(0,1,0,1);
 	}
 
 	for(var i = 0; i < carousel.items.length; ++i)
@@ -161,17 +192,22 @@ function update(t)
 			//scale = THREE.Math.lerp(scale, 1.0, dt * 5.0);
 			//item.scale.setScalar(scale);
 			item.position.z = THREE.Math.lerp(item.position.z, 1.0, dt * 5.0);
-			item.rotation.y = THREE.Math.lerp(item.rotation.y, -30.0 * THREE.Math.DEG2RAD, dt * 5.0);
+			//item.rotation.y = THREE.Math.lerp(item.rotation.y, -30.0 * THREE.Math.DEG2RAD, dt * 5.0);
+			item.rotation.y += dt;
+
 		}
 		else
 		{
 			//scale = THREE.Math.lerp(scale, 0.5, dt * 5.0);
 			//item.scale.setScalar(scale);
 			item.position.z = THREE.Math.lerp(item.position.z, 0.0, dt * 5.0);
-			item.rotation.y = THREE.Math.lerp(item.rotation.y, 30 * THREE.Math.DEG2RAD, dt * 5.0);
+			// /item.rotation.y = THREE.Math.lerp(item.rotation.y, 30 * THREE.Math.DEG2RAD, dt * 5.0);
 		}
 	}
-	
+
+	var col = carousel.background.material.uniforms.colour.value;
+	col.lerp(app.colours[carousel.index], dt * 5.0);
+
 	render();
 	update_input();
 }

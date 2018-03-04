@@ -20,12 +20,6 @@ float vignette(vec2 p, float r)
 
 void main() 
 {
-	//float v = smoothstep(0.468,-0.276, _uv.y);
-	//vec3 a = vec3(0.1,0.1,0.12);
-	//vec3 b = vec3(0.1,0.1,0.12);
-	//vec3 rgb = mix(a,b,v);
-
-	float v = vignette(_uv - 0.5, 1.0) + 0.3;
-
-	gl_FragColor = vec4(colour * v, 1.0);
+	float v = vignette(_uv - 0.5, 1.0);
+	gl_FragColor = vec4(v,v,v,1.0);
 }
