@@ -21,12 +21,11 @@ function preload()
 	// TEXTURES //
 	load_texture('blank', 'img/blank.png'),
 	load_texture('lightmap', 'img/lightmap.png'),
-	load_texture('black', 'img/mc_black.jpg'),
-	load_texture('grey', 'img/mc_grey.jpg'),
+	load_texture('env', 'img/env_map.jpg'),
 	load_texture('pattern', 'img/pattern.jpg'),
 
 	// SHADERS //
-	load_shader('normals', 'glsl/normals.glsl');
+	//load_shader('normals', 'glsl/normals.glsl');
 
 	load_shader('background', 'glsl/background.glsl',
 	{
@@ -38,9 +37,10 @@ function preload()
 	load_shader('metal', 'glsl/wheels.glsl', 
 	{
 		colour: {value: new THREE.Vector4(1,1,1,1) },
-		matcap: {value: null},
+		envmap: {value: null},
 		lightmap: {value: null},
 		diffuse: {value: null},
+		shinyness: {value: 1.0},
 	});
 
 	requestAnimationFrame(update);
@@ -49,6 +49,7 @@ window.addEventListener('load', preload);
 
 function init() 
 {
+
 	app.input = Input();
 	app.last_time = performance.now(); //@todo replace with Threejs clock thingy
 
@@ -107,24 +108,36 @@ function init()
 		var top_mat = materials.metal.clone();
 		top_mat.uniforms.lightmap.value = textures.lightmap;
 		top_mat.uniforms.diffuse.value = textures.blank;
+		top_mat.uniforms.envmap.value = textures.env;
+		top_mat.uniforms.shinyness.value = 0.0;
+
 		skateboard.top = new THREE.Mesh(meshes.top, top_mat);
 		group.add(skateboard.top);
 
 		var base_mat = materials.metal.clone();
 		base_mat.uniforms.lightmap.value = textures.lightmap;
 		base_mat.uniforms.diffuse.value = textures.pattern;
+		base_mat.uniforms.envmap.value = textures.env;
+		base_mat.uniforms.shinyness.value = 0.1;
+		
 		skateboard.base = new THREE.Mesh(meshes.base, base_mat);
 		group.add(skateboard.base);
 
 		var wheels_mat = materials.metal.clone();
 		wheels_mat.uniforms.lightmap.value = textures.lightmap;
 		wheels_mat.uniforms.diffuse.value = textures.blank;
+		wheels_mat.uniforms.envmap.value = textures.env;
+		wheels_mat.uniforms.shinyness.value = 0.4;
+
 		skateboard.wheels = new THREE.Mesh(meshes.wheels, wheels_mat);
 		group.add(skateboard.wheels);
 
 		var trucks_mat = materials.metal.clone();
 		trucks_mat.uniforms.lightmap.value = textures.lightmap;
 		trucks_mat.uniforms.diffuse.value = textures.blank;
+		trucks_mat.uniforms.envmap.value = textures.env;
+		trucks_mat.uniforms.shinyness.value = 0.3;
+
 		skateboard.trucks = new THREE.Mesh(meshes.trucks, trucks_mat);
 		group.add(skateboard.trucks);
 
@@ -139,6 +152,23 @@ function init()
 	materials.overlay.depthTest = false;
 	app.scene.add(app.carousel.overlay);
 	*/
+
+	// COLOUR PICKER
+	app.colour = new THREE.Vector3();
+
+	var picker = document.createElement('input');
+	picker.setAttribute('type', 'color');
+	document.body.append(picker);
+	picker.addEventListener('change', function(e)
+	{
+		var current_board = app.carousel.items[app.carousel.index];
+		var colour = current_board.wheels.material.uniforms.colour.value;
+		hex_to_rgb(colour, e.target.value, true);
+	});
+	picker.style.position = 'absolute';
+	picker.style.top = '30px';
+	picker.style.left = '30px';
+	app.picker = picker;
 
 	app.renderer = new THREE.WebGLRenderer({antialias: true});
 	app.renderer.setSize(window.innerWidth, window.innerHeight);

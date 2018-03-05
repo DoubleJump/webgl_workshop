@@ -5,6 +5,22 @@ function clamp(a, min, max)
 	else return a;
 }
 
+THREE.Material.prototype.setUniform = function(name, val)
+{
+	this.uniforms[name].value = val;
+};
+
+function hex_to_rgb(out, hex) 
+{
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    if(!result) return;
+
+    var r = parseInt(result[1], 16) / 255;
+    var g = parseInt(result[2], 16) / 255;
+    var b = parseInt(result[3], 16) / 255;
+
+    out.set(r,g,b);
+}
 
 function load_shader(name, url, uniforms, options)
 {
