@@ -5,10 +5,24 @@ function clamp(a, min, max)
 	else return a;
 }
 
-THREE.Material.prototype.setUniform = function(name, val)
+function screen_to_normalized_device(out, screen)
 {
-	this.uniforms[name].value = val;
-};
+	var width = app.renderer.domElement.width;
+	var height = app.renderer.domElement.height;
+	out.x = (screen.x / width) * 2 - 1;
+	out.y = - (screen.y / height) * 2 + 1;
+}
+
+function world_to_screen(out, world, camera)
+{
+	var width = app.renderer.domElement.width / 2;
+	var height = app.renderer.domElement.height / 2;
+
+	var pos = world.clone();
+	pos.project(camera);
+	out.x = (pos.x * width) + width;
+	out.y = -(pos.y * height) + height;
+}
 
 function hex_to_rgb(out, hex) 
 {
@@ -47,31 +61,42 @@ function load_shader(name, url, uniforms, options)
 
 			app.assets.materials[name] = material;
 			app.assets.load_count--;
+			check_assets_loaded();
         }
     }
     rq.send();
 }
 
+
 function load_mesh(name, url)
 {
 	app.assets.load_count++;
-
 	var loader = new THREE.JSONLoader();
 	loader.load
-	(
+	(			
 		url,
 		function(geometry, materials) 
 		{
 			app.assets.meshes[name] = geometry;
 			app.assets.load_count--;
+			check_assets_loaded();
 		}
 	);
+}
+
+function load_meshes(meshes)
+{
+	for(var m in meshes)
+	{
+		var name = m;
+		var url = meshes[m];
+		load_mesh(name, url);
+	}
 }
 
 function load_texture(name, url)
 {
 	app.assets.load_count++;
-
 	var loader = new THREE.TextureLoader();
 	loader.load
 	(
@@ -80,11 +105,31 @@ function load_texture(name, url)
 		{
 			app.assets.textures[name] = texture;
 			app.assets.load_count--;
+			check_assets_loaded();
 		}
 	);
 }
 
-function debug_camera_controls(camera, dt)
+function load_textures(textures)
+{
+	for(var t in textures)
+	{
+		var name = t;
+		var url = textures[t];
+		load_texture(name, url);
+	}	
+}
+
+function check_assets_loaded()
+{
+	if(app.assets.load_count === 0 && app.init === false)
+	{
+		init();
+		requestAnimationFrame(update);
+	}
+}
+
+function debug_camera_movement(camera, dt)
 {
 	var speed = 1.0;
 	if(key_held(Keys.A)) camera.position.x -= speed * dt;

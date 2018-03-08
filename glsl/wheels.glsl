@@ -24,7 +24,9 @@ varying vec2 _uv2;
 varying vec3 _eye;
 
 uniform vec4 colour;
+uniform float highlight;
 uniform sampler2D envmap;
+uniform sampler2D envmap_blurred;
 uniform sampler2D lightmap;
 uniform sampler2D diffuse;
 uniform float shinyness;
@@ -36,29 +38,33 @@ float lambert(vec3 N, vec3 L)
 
 void main() 
 {
+	// Get reflection coordinates
 	vec3 r = reflect(_eye, _normal);
 	float m = 2.0 * sqrt(pow(r.x, 2.0) + pow(r.y, 2.0) + pow(r.z + 1.0, 2.0));
 	vec2 ruv = r.xy / m + 0.5;
-	// /ruv.y = 1.0-ruv.y;
-	float env = texture2D(envmap, 1.0-ruv).r * shinyness;
+
+	// Mix between sharp and blurred reflections
+	float env_sharp = texture2D(envmap, ruv).r;
+	float env_blurred = texture2D(envmap_blurred, ruv).r;
+	float env = mix(env_blurred, env_sharp, shinyness) + 0.1;
 	
-	float lambertA = lambert(_normal, vec3(0.0,1.0,0.0));
-	//float lambertB = lambert(_normal, vec3(-0.8,0.0,0.0)) * 0.4;
+	// Directional light
 	float ambient = 0.2;
+	float direction_light = lambert(_normal, vec3(0.0,1.0,1.0)) + ambient;
 
+	// Lightmap
 	float lm = texture2D(lightmap, _uv2).r;
-	lm = pow(lm, 3.0);
-	//lm *= 1.8;
+	lm += env;
+	lm = clamp(lm, 0.0,1.0);
 
-	//vec3 lightA = vec3(1.0,0.98,0.96) * lambertA;
-	//vec3 lightB = vec3(0.94,0.98,1.0) * lambertB;
+	// Diffuse map
+	vec3 diff = texture2D(diffuse, _uv).rgb;
 
-	vec3 diff = texture2D(diffuse, _uv).rgb * 1.2;
-	//diff *= clamp((lm * lambertA) + env, 0.0,1.0);
-	diff *= clamp(lm + env, 0.0,1.0);
+	vec3 final = diff * colour.rgb * vec3(env * direction_light);
 
-
-	vec3 final = colour.rgb * diff;
+	// Add highlight glow
+	vec3 highlight_colour = vec3(0.5);
+	final += (highlight_colour * highlight);
 
 	gl_FragColor = vec4(final, 1.0);
 }

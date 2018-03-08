@@ -99,10 +99,10 @@ function update_input()
 	}
 
 	var m = input.mouse;
-	m.delta[0] = m.position[0] - m.last_position[0];
-	m.delta[1] = m.position[1] - m.last_position[1];
-	m.last_position[0] = m.position[0];
-	m.last_position[1] = m.position[1];
+	m.delta.x = m.position.x - m.last_position.x;
+	m.delta.y = m.position.y - m.last_position.y;
+	m.last_position.x = m.position.x;
+	m.last_position.y = m.position.y;
 }
 
 function key_up(code)
@@ -134,6 +134,6 @@ function on_key_up(e)
 }
 function on_mouse_move(e)
 {
-	input.mouse.position[0] = e.clientX * app.res;
-	input.mouse.position[1] = e.clientY * app.res;
+	input.mouse.position.x = e.clientX;// * app.res;
+	input.mouse.position.y = e.clientY;// * app.res;
 }
