@@ -24,7 +24,7 @@ function world_to_screen(out, world, camera)
 	out.y = -(pos.y * height) + height;
 }
 
-function hex_to_rgb(out, hex) 
+function hex_to_rgb(hex) 
 {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     if(!result) return;
@@ -33,7 +33,7 @@ function hex_to_rgb(out, hex)
     var g = parseInt(result[2], 16) / 255;
     var b = parseInt(result[3], 16) / 255;
 
-    out.set(r,g,b);
+    return new THREE.Vector3(r,g,b);
 }
 
 function load_shader(name, url, uniforms, options)
