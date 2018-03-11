@@ -1,8 +1,60 @@
+function hex_to_rgb(hex) 
+{
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    if(!result) return;
+
+    var r = parseInt(result[1], 16) / 255;
+    var g = parseInt(result[2], 16) / 255;
+    var b = parseInt(result[3], 16) / 255;
+
+    return new THREE.Vector3(r,g,b);
+}
+
+function Gradient(a,b)
+{
+	var r = 
+	{
+		a: hex_to_rgb(a),
+		b: hex_to_rgb(b),
+	};
+
+	return r;
+}
+
+function blend_gradient(r, a,b,t)
+{
+	r.a.x = THREE.Math.lerp(a.a.x, b.a.x, t);
+	r.a.y = THREE.Math.lerp(a.a.y, b.a.y, t);
+	r.a.z = THREE.Math.lerp(a.a.z, b.a.z, t);
+	r.b.x = THREE.Math.lerp(a.b.x, b.b.x, t);
+	r.b.y = THREE.Math.lerp(a.b.y, b.b.y, t);
+	r.b.z = THREE.Math.lerp(a.b.z, b.b.z, t);
+}
+
+THREE.Material.prototype.set = function(name, value)
+{
+	this.uniforms[name].value = value;
+}
+
+THREE.Material.prototype.setAll = function(uniforms)
+{
+	for(var k in uniforms)
+	{
+		console.log(k);
+		this.uniforms[k].value = uniforms[k];
+	}
+}
+
 function clamp(a, min, max)
 {
 	if(a < min) return min;
 	else if(a > max) return max;
 	else return a;
+}
+
+function radians(degrees)
+{
+	return degrees * THREE.Math.DEG2RAD;
 }
 
 function screen_to_normalized_device(out, screen)
@@ -24,16 +76,9 @@ function world_to_screen(out, world, camera)
 	out.y = -(pos.y * height) + height;
 }
 
-function hex_to_rgb(hex) 
+function set_to_uniform(mesh, name, value)
 {
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    if(!result) return;
-
-    var r = parseInt(result[1], 16) / 255;
-    var g = parseInt(result[2], 16) / 255;
-    var b = parseInt(result[3], 16) / 255;
-
-    return new THREE.Vector3(r,g,b);
+	mesh.material.uniforms[name].value = value;
 }
 
 function load_shader(name, url, uniforms, options)

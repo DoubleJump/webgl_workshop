@@ -58,15 +58,16 @@ function init()
 	app.input = Input();
 	app.scene = new THREE.Scene();
 	app.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.01, 100);
-	app.camera.position.z = 3;
+	app.camera.position.set(0,-0.08,3.3);
 
 	app.carousel = 
 	{
 		root: new THREE.Group(),
 		items: [],
 		background: null,
+		gradient: Gradient('#FFFB02', '#EFCC01'),
 		index: 0,
-		gap: 3.4,
+		gap: 3.4, // @TODO work this out from camera projection
 		current_board: null,
 		current_component: null,
 		spinning: false,
@@ -74,10 +75,12 @@ function init()
 
 	app.colours = 
 	[
-		hex_to_rgb('#FFFB02'),
-		hex_to_rgb('#EFCC01'),
+		Gradient('#FFFB02', '#EFCC01'),
+		Gradient('#4972A8', '#132C65'),
+		Gradient('#8D1114', '#B31922')
 	];
 
+	var carousel = app.carousel;
 	var meshes = app.assets.meshes;
 	var materials = app.assets.materials;
 	var textures = app.assets.textures;
@@ -98,60 +101,75 @@ function init()
 		skateboard.spin_velocity = 0;
 
 		var group = new THREE.Group();
+		group.position.x = i * carousel.gap;
+		group.rotation.set(0, radians(45), radians(-120));
+		group.parent = carousel.root;
 		skateboard.group = group;
-		group.position.x = i * app.carousel.gap;
-		group.rotation.z = 90 * THREE.Math.DEG2RAD;
-		group.rotation.z = -120 * THREE.Math.DEG2RAD;
-		group.parent = app.carousel.root;
 
-		var top_mat = materials.metal.clone();
-		top_mat.uniforms.colour.value = new THREE.Vector3(0.2,0.2,0.2);
-		top_mat.uniforms.lightmap.value = textures.lightmap;
-		top_mat.uniforms.diffuse.value = textures.blank;
-		top_mat.uniforms.envmap.value = textures.envmap;
-		top_mat.uniforms.envmap_blurred.value = textures.envmap_blurred;
-		top_mat.uniforms.shinyness.value = 0.0;
-		skateboard.top = new THREE.Mesh(meshes.top, top_mat);
+		// TOP OF SKATEBOARD
+		var top_material = materials.metal.clone();
+		top_material.setAll
+		({
+			colour: new THREE.Vector3(0.2,0.2,0.2),
+			lightmap: textures.lightmap,
+			diffuse: textures.blank,
+			envmap: textures.envmap,
+			envmap_blurred: textures.envmap_blurred,
+			shinyness: 0,
+		});
+		skateboard.top = new THREE.Mesh(meshes.top, top_material);
 		skateboard.top.name = 'top';
 		group.add(skateboard.top);
 
-		var base_mat = materials.metal.clone();
-		base_mat.uniforms.lightmap.value = textures.lightmap;
-		base_mat.uniforms.diffuse.value = textures.boardA;
-		base_mat.uniforms.envmap.value = textures.envmap;
-		base_mat.uniforms.envmap_blurred.value = textures.envmap_blurred;
-		base_mat.uniforms.shinyness.value = 0.3;
-		skateboard.base = new THREE.Mesh(meshes.base, base_mat);
+		// BASE OF SKATEBOARD
+		var base_material = materials.metal.clone();
+		base_material.setAll
+		({
+			lightmap: textures.lightmap,
+			diffuse: textures.boardA,
+			envmap: textures.envmap,
+			envmap_blurred: textures.envmap_blurred,
+			shinyness: 0.3,
+		});
+		skateboard.base = new THREE.Mesh(meshes.base, base_material);
 		skateboard.base.name = 'base';
 		group.add(skateboard.base);
 
-		var wheels_mat = materials.metal.clone();
-		wheels_mat.uniforms.colour.value = new THREE.Vector3(1.0,0.2,0.1);
-		wheels_mat.uniforms.lightmap.value = textures.lightmap;
-		wheels_mat.uniforms.diffuse.value = textures.blank;
-		wheels_mat.uniforms.envmap.value = textures.envmap;
-		wheels_mat.uniforms.envmap_blurred.value = textures.envmap_blurred;
-		wheels_mat.uniforms.shinyness.value = 0.8;
-		skateboard.wheels = new THREE.Mesh(meshes.wheels, wheels_mat);
+		// WHEELS
+		var wheel_material = materials.metal.clone();
+		wheel_material.setAll
+		({
+			colour: new THREE.Vector3(0.1,0.1,0.11),
+			lightmap: textures.lightmap,
+			diffuse: textures.blank,
+			envmap: textures.envmap,
+			envmap_blurred: textures.envmap_blurred,
+			shinyness: 0.8,
+		});
+		skateboard.wheels = new THREE.Mesh(meshes.wheels, wheel_material);
 		skateboard.wheels.name = 'wheels';
 		group.add(skateboard.wheels);
 
-		var trucks_mat = materials.metal.clone();
-		trucks_mat.uniforms.colour.value = new THREE.Vector3(0.6,0.6,0.62);
-		trucks_mat.uniforms.lightmap.value = textures.lightmap;
-		trucks_mat.uniforms.diffuse.value = textures.blank;
-		trucks_mat.uniforms.envmap.value = textures.envmap;
-		trucks_mat.uniforms.envmap_blurred.value = textures.envmap_blurred;
-		trucks_mat.uniforms.shinyness.value = 0.5;
-		skateboard.trucks = new THREE.Mesh(meshes.trucks, trucks_mat);
+		// TRUCKS
+		var truck_material = materials.metal.clone();
+		truck_material.setAll
+		({
+			colour: new THREE.Vector3(0.6,0.6,0.62),
+			lightmap: textures.lightmap,
+			diffuse: textures.blank,
+			envmap: textures.envmap,
+			envmap_blurred: textures.envmap_blurred,
+			shinyness: 0.5,
+		});
+		skateboard.trucks = new THREE.Mesh(meshes.trucks, truck_material);
 		skateboard.trucks.name = 'trucks';
 		group.add(skateboard.trucks);
 
-		app.carousel.items.push(skateboard);
-		app.carousel.root.add(group);
+		carousel.items.push(skateboard);
+		carousel.root.add(group);
 	}
 
-	app.scene.add(app.carousel.root);
+	app.scene.add(carousel.root);
 
 
 	// RAYCASTING
@@ -177,7 +195,7 @@ function init()
 	button_left.addEventListener('click', carousel_prev);
 	button_right.addEventListener('click', carousel_next);
 
-	// INIT RENDERER
+	// START RENDERER
 
 	app.renderer = new THREE.WebGLRenderer({antialias: true});
 	app.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -217,18 +235,16 @@ function update(t)
 	carousel.current_board = carousel.items[carousel.index];
 
 	var camera = app.camera;
-
 	debug_camera_movement(camera, dt);
 
 	// Raycasting
 
 	for(var i = 0; i < carousel.items.length; ++i)
 	{
-		var item = carousel.items[i].group;
-		
-		for(var j = 0; j < item.children.length; ++j)
+		var children = carousel.items[i].group.children;
+		for(var j = 0; j < children.length; ++j)
 		{
-			var child = item.children[j];
+			var child = children[j];
 			child.material.uniforms.highlight.value = 0.0;
 		}
 	}
@@ -321,10 +337,13 @@ function update(t)
 		}
 	}
 
-	//var col = carousel.background.material.uniforms.colour.value;
-	carousel.background.material.uniforms.colourA.value = app.colours[0];
-	carousel.background.material.uniforms.colourB.value = app.colours[1];
-	//col.lerp(app.colours[carousel.index], dt * 5.0);
+
+	// ANIMATE BACKGROUND GRADIENT
+
+	var current_grad = app.colours[carousel.index];
+	blend_gradient(carousel.gradient, carousel.gradient, current_grad, dt * 5.0);
+	carousel.background.material.uniforms.colourA.value = carousel.gradient.a;
+	carousel.background.material.uniforms.colourB.value = carousel.gradient.b;
 
 	render();
 	update_input();

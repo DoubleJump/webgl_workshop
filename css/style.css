@@ -40,19 +40,28 @@ body
 .carousel-button
 {
 	position: absolute;
-	background: white;
-	width: 20px;
-	height: 60px;
+	width: 77px;
+	height: 154px;
 	top: 50%;
 	transform: translateY(-50%);
+	/*background: url('../svg/arrow.svg');*/
+	opacity: 0.5;
+	transition: opacity 0.15s ease-out;
+	cursor: pointer;
+}
+
+.carousel-button:hover
+{
+	opacity: 1.0;
 }
 
 .carousel-button.left
 {
-	left: 30px;
+	left: 0px;
 }
 
 .carousel-button.right
 {
-	right: 30px;
+	right: 0px;
+	transform: translateY(-50%) scaleX(-1);
 }

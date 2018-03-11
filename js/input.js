@@ -134,6 +134,6 @@ function on_key_up(e)
 }
 function on_mouse_move(e)
 {
-	input.mouse.position.x = e.clientX;// * app.res;
-	input.mouse.position.y = e.clientY;// * app.res;
+	input.mouse.position.x = e.clientX;
+	input.mouse.position.y = e.clientY;
 }
