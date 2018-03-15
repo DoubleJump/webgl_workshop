@@ -15,13 +15,13 @@ void main()
 	// Normals get transformed with their own special matrix
 	_normal = normalMatrix * normal;
 
-	// Eye is the direction of vertex to the camera
-	_eye = vec3(modelViewMatrix * vec4(position, 1.0));
-	_eye = normalize(_eye);
-
 	// Our meshes two uv maps
 	_uv = uv;
 	_uv2 = uv2;
+
+	// Eye is the direction of vertex to the camera
+	_eye = vec3(modelViewMatrix * vec4(position, 1.0));
+	_eye = normalize(_eye);
 
 	// Transform the vertex into is final place on the screen
 	gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
@@ -42,45 +42,62 @@ uniform sampler2D lightmap;
 uniform sampler2D diffuse;
 uniform float shinyness;
 
+const float PI = 3.14159265359;
+const float TAU = 6.28318530718;
+
 float fresnel(vec3 E, vec3 N, float bias, float scale, float power)
 {
 	float r = bias + scale * pow(1.0 + dot(E, N), power);
 	return r;
 }
 
+vec2 env_map_equirect(vec3 norm, float flip) 
+{
+	float phi = acos(-norm.y);
+	float theta = atan(flip * norm.x, norm.z) + PI;
+	return vec2(theta / (TAU), phi / PI);
+}
+
+vec3 desaturate(vec3 color, float amount)
+{
+	vec3 gray = vec3(dot(vec3(0.3, 0.59, 0.11), color));
+	return vec3(mix(gray, color, amount));
+}
+
 void main() 
 {
-	// Get reflection coordinates
-	vec3 r = reflect(_eye, _normal);
-	float m = 2.0 * sqrt(pow(r.x, 2.0) + pow(r.y, 2.0) + pow(r.z + 1.0, 2.0));
-	vec2 ruv = r.xy / m + 0.5;
+	mat4 inv_view = -viewMatrix;
 
-	// Fresnel is that angle between the surface and the camera
-	float fr = fresnel(_eye, _normal, 0.1,1.0,2.0);
+	vec3 ecEyeDir = -_eye;
+    vec3 wcEyeDir = vec3(inv_view * vec4(ecEyeDir, 0.0));
+    vec3 wcNormal = vec3(inv_view * vec4(_normal, 0.0));
 
-	// Environment maps
-	float env_sharp = texture2D(envmap, ruv).r;
-	float env_blurred = texture2D(envmap_blurred, ruv).r;
+    vec3 ref = reflect(-wcEyeDir, normalize(wcNormal));
+    vec2 ruv = env_map_equirect(ref, -1.0);
+    vec3 env_smooth = texture2D(envmap, ruv).rgb;
+    vec3 env_rough = texture2D(envmap_blurred, ruv).rgb;
+
+	float fr = fresnel(_eye, _normal, 0.0, 1.0, 2.0);
 
 	// Lightmap
-	float lm = texture2D(lightmap, _uv2).r * 1.8;
-	//lm = smoothstep(0.6,1.0,lm);
+	float lm = texture2D(lightmap, _uv2).r * 1.65;
+	lm = lm * (lm * 1.2);
 
-	// Diffuse map
-	vec3 diff = texture2D(diffuse, _uv).rgb;
+    vec3 diff = texture2D(diffuse, _uv).rgb;
+    diff *= mix(env_rough, env_smooth, shinyness);
+    diff *= colour.rgb;
+    diff = desaturate(diff, 1.0-fr);
 
-	// Blend between sharp and blurred reflections
-	// Reflections get sharper at higher angles
-	float env = mix(env_blurred, env_sharp, fr);
+	vec3 env = mix(diff,env_smooth, fr);
 
-	// Desaturate colours at high angles
-	vec3 rgb = mix(diff * colour.rgb, vec3(1.0,1.0,0.75), fr);
+    vec3 rgb = env * lm;
+    rgb += vec3(0.03,0.03,0.0);
 
-	vec3 final = rgb * lm * env;
+    float alpha = 1.0;
 
-	// Add highlight glow
-	vec3 highlight_colour = vec3(0.2,0.4,1.0) * highlight * fr;
-	final += highlight_colour;
+    // Add highlight glow
+	vec3 highlight_colour = vec3(0.2,0.4,1.0) * highlight * (fr + 0.3);
+	rgb += highlight_colour;
 
-	gl_FragColor = vec4(final, 1.0);
+	gl_FragColor = vec4(rgb, alpha);
 }

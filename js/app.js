@@ -115,7 +115,7 @@ function init()
 			diffuse: textures.blank,
 			envmap: textures.envmap,
 			envmap_blurred: textures.envmap_blurred,
-			shinyness: 0,
+			shinyness: 0.1,
 		});
 		skateboard.top = new THREE.Mesh(meshes.top, top_material);
 		skateboard.top.name = 'top';
@@ -129,7 +129,7 @@ function init()
 			diffuse: textures.boardA,
 			envmap: textures.envmap,
 			envmap_blurred: textures.envmap_blurred,
-			shinyness: 0.3,
+			shinyness: 0.1,
 		});
 		skateboard.base = new THREE.Mesh(meshes.base, base_material);
 		skateboard.base.name = 'base';
@@ -154,12 +154,12 @@ function init()
 		var truck_material = materials.metal.clone();
 		truck_material.setAll
 		({
-			colour: new THREE.Vector3(0.6,0.6,0.62),
+			colour: new THREE.Vector3(0.4,0.4,0.4),
 			lightmap: textures.lightmap,
 			diffuse: textures.blank,
 			envmap: textures.envmap,
 			envmap_blurred: textures.envmap_blurred,
-			shinyness: 0.5,
+			shinyness: 1.0,
 		});
 		skateboard.trucks = new THREE.Mesh(meshes.trucks, truck_material);
 		skateboard.trucks.name = 'trucks';

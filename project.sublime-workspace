@@ -4,90 +4,6 @@
 		"selected_items":
 		[
 			[
-				"car",
-				"carousel_next"
-			],
-			[
-				"ad",
-				"addEventListener"
-			],
-			[
-				"tra",
-				"translateY()"
-			],
-			[
-				"x",
-				"x_pos"
-			],
-			[
-				"C",
-				"CarouselState"
-			],
-			[
-				"key",
-				"key_down"
-			],
-			[
-				"ke",
-				"key_up"
-			],
-			[
-				"can",
-				"can_drag"
-			],
-			[
-				"cur",
-				"current_component"
-			],
-			[
-				"cu",
-				"current_board"
-			],
-			[
-				"po",
-				"point"
-			],
-			[
-				"o",
-				"obj"
-			],
-			[
-				"ca",
-				"carousel"
-			],
-			[
-				"hi",
-				"highlight_colour"
-			],
-			[
-				"normal",
-				"normalized_mouse"
-			],
-			[
-				"lam",
-				"lambertA"
-			],
-			[
-				"vec",
-				"vec3"
-			],
-			[
-				"en",
-				"env_blurred"
-			],
-			[
-				"no",
-				"normalized_mouse"
-			],
-			[
-				"la",
-				"lambertA"
-			],
-			[
-				"text",
-				"textures"
-			],
-			[
 				"on",
 				"on_song_click"
 			],
@@ -108,8 +24,16 @@
 				"add_numbers"
 			],
 			[
+				"po",
+				"pointer-events"
+			],
+			[
 				"pro",
 				"project"
+			],
+			[
+				"tra",
+				"translateY()"
 			],
 			[
 				"mar",
@@ -198,6 +122,10 @@
 			[
 				"to",
 				"touches"
+			],
+			[
+				"ca",
+				"camera"
 			],
 			[
 				"pr",
@@ -304,6 +232,10 @@
 				"game_info"
 			],
 			[
+				"vec",
+				"vec4"
+			],
+			[
 				"camea",
 				"camera"
 			],
@@ -368,6 +300,10 @@
 				"GameScene"
 			],
 			[
+				"can",
+				"can_render"
+			],
+			[
 				"fade",
 				"fade_out"
 			],
@@ -378,6 +314,10 @@
 			[
 				"from",
 				"fromTo"
+			],
+			[
+				"no",
+				"normal"
 			],
 			[
 				"norma",
@@ -480,6 +420,10 @@
 				"AD_polite_load"
 			],
 			[
+				"ad",
+				"adHeader"
+			],
+			[
 				"ex",
 				"exit_url"
 			],
@@ -514,6 +458,62 @@
 			[
 				"rec",
 				"record_button"
+			],
+			[
+				"inst",
+				"instance_position"
+			],
+			[
+				"_",
+				"_Vec3"
+			],
+			[
+				"cur",
+				"current_projected"
+			],
+			[
+				"st",
+				"start_location"
+			],
+			[
+				"de",
+				"delta"
+			],
+			[
+				"ve",
+				"vertex"
+			],
+			[
+				"start",
+				"start_location"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"lo",
+				"locations"
+			],
+			[
+				"curr",
+				"current_tick"
+			],
+			[
+				"time",
+				"timestamp"
+			],
+			[
+				"star",
+				"start_location"
+			],
+			[
+				"mat4_s",
+				"mat4_stack"
+			],
+			[
+				"LOG",
+				"LOG_LEVEL"
 			]
 		]
 	},
@@ -523,25 +523,33 @@
 			"file": "js/app.js",
 			"settings":
 			{
-				"buffer_size": 8718,
+				"buffer_size": 8568,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/webdev/PBR/src/common/reflection.glsl",
+			"settings":
+			{
+				"buffer_size": 1445,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/webdev/f2018/src/glslc/gamma.glslc",
+			"settings":
+			{
+				"buffer_size": 350,
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "index.html",
 			"settings":
 			{
-				"buffer_size": 799,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "js/utils.js",
-			"settings":
-			{
-				"buffer_size": 2909,
+				"buffer_size": 1199,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -550,33 +558,33 @@
 			"file": "css/style.css",
 			"settings":
 			{
-				"buffer_size": 512,
+				"buffer_size": 687,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/Users/gareth/Sites/f2018/src/js/projection.js",
+			"file": "js/utils.js",
 			"settings":
 			{
-				"buffer_size": 2603,
+				"buffer_size": 3705,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "js/input.js",
+			"contents": "// attribute vec3 position; -- supplied by THREE\nattribute vec2 uv2;\n\nvarying vec3 _normal;\nvarying vec2 _uv;\nvarying vec2 _uv2;\nvarying vec3 _eye;\n\n//uniform mat3 normalMatrix; -- supplied by THREE\n//uniform mat4 modelViewMatrix; -- supplied by THREE\n//uniform mat4 projectionMatrix; -- supplied by THREE\n\nvoid main() \n{\n\t// Normals get transformed with their own special matrix\n\t_normal = normalMatrix * normal;\n\n\t// Our meshes two uv maps\n\t_uv = uv;\n\t_uv2 = uv2;\n\n\t// Eye is the direction of vertex to the camera\n\t_eye = vec3(modelViewMatrix * vec4(position, 1.0));\n\t_eye = normalize(_eye);\n\n\t// Transform the vertex into is final place on the screen\n\tgl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);\n}\n\n========\n\nvarying vec3 _normal;\nvarying vec2 _uv;\nvarying vec2 _uv2;\nvarying vec3 _eye;\n\nuniform vec4 colour;\nuniform float highlight;\nuniform sampler2D envmap;\nuniform sampler2D envmap_blurred;\nuniform sampler2D lightmap;\nuniform sampler2D diffuse;\nuniform float shinyness;\n\nfloat fresnel(vec3 E, vec3 N, float bias, float scale, float power)\n{\n\tfloat r = bias + scale * pow(1.0 + dot(E, N), power);\n\treturn r;\n}\n\nvec2 env_map_equirect(vec3 norm, float flip) \n{\n\tfloat phi = acos(-norm.y);\n\tfloat theta = atan(flip * norm.x, norm.z) + PI;\n\treturn vec2(theta / (TAU), phi / PI);\n}\n\nvoid main() \n{\n\t// Get reflection coordinates\n\tvec3 r = reflect(_eye, _normal);\n\tfloat m = 2.0 * sqrt(pow(r.x, 2.0) + pow(r.y, 2.0) + pow(r.z + 1.0, 2.0));\n\tvec2 ruv = r.xy / m + 0.5;\n\n\t// Fresnel is that angle between the surface and the camera\n\tfloat fr = fresnel(_eye, _normal, 0.1,1.0,2.0);\n\n\t// Environment maps\n\tfloat env_sharp = texture2D(envmap, ruv).r;\n\tfloat env_blurred = texture2D(envmap_blurred, ruv).r;\n\n\t// Lightmap\n\tfloat lm = texture2D(lightmap, _uv2).r * 1.8;\n\t//lm = smoothstep(0.6,1.0,lm);\n\n\t// Diffuse map\n\tvec3 diff = texture2D(diffuse, _uv).rgb;\n\n\t// Blend between sharp and blurred reflections\n\t// Reflections get sharper at higher angles\n\tfloat env = mix(env_blurred, env_sharp, fr);\n\n\t// Desaturate colours at high angles\n\tvec3 rgb = mix(diff * colour.rgb, vec3(1.0,1.0,0.75), fr);\n\n\tvec3 final = rgb * lm * env;\n\n\t// Add highlight glow\n\tvec3 highlight_colour = vec3(0.2,0.4,1.0) * highlight * fr;\n\tfinal += highlight_colour;\n\n\tgl_FragColor = vec4(final, 1.0);\n}",
 			"settings":
 			{
-				"buffer_size": 2287,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
+				"buffer_size": 2300,
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "glsl/wheels.glsl",
 			"settings":
 			{
-				"buffer_size": 1797,
+				"buffer_size": 2486,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -589,7 +597,7 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 131.0,
+		"height": 129.0,
 		"last_filter": "Package Control: install",
 		"selected_items":
 		[
@@ -658,7 +666,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 472.0
+		"width": 520.0
 	},
 	"console":
 	{
@@ -683,26 +691,27 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/gareth/Sites/webgl_workshop-master"
+		"/C/webdev/webgl_workshop"
 	],
 	"file_history":
 	[
-		"/Users/gareth/Sites/ghd-ad-banners/build_local/christmas/Awareness/ghd-christmas-awareness-160x600/160x600.js",
-		"/Users/gareth/Sites/ghd-ad-banners/ad_lib.js",
-		"/Users/gareth/Sites/webgl_workshop-master/css/style.css",
-		"/Users/gareth/Sites/webgl_workshop-master/glsl/background.glsl",
-		"/Users/gareth/Sites/webgl_workshop-master/glsl/vignette.glsl",
-		"/Users/gareth/Sites/webgl_workshop-master/glsl/matcap.glsl",
-		"/Users/gareth/Sites/webgl_workshop-master/glsl/base.glsl",
+		"/C/webdev/webgl_workshop/glsl/wheels.glsl",
+		"/C/webdev/f2018/src/glslc/pi.glslc",
+		"/C/webdev/f2018/src/glslc/desaturate.glslc",
+		"/C/webdev/f2018/src/glslc/envmap.glslc",
+		"/C/webdev/webgl_workshop/svg/arrow.svg",
+		"/C/Users/garet/Desktop/sppedpaint",
+		"/C/webdev/webgl_workshop/glsl/background.glsl",
 		"/C/webdev/webgl/src/glsl/diffuse.glsl",
+		"/C/webdev/f2018/src/glslc/colour_normals.glslc",
+		"/C/webdev/webgl/src/glsl/components/fresnel.glslc",
+		"/C/webdev/webgl_workshop/glsl/vignette.glsl",
+		"/C/webdev/webgl_workshop/glsl/matcap.glsl",
+		"/C/webdev/webgl_workshop/glsl/base.glsl",
 		"/C/webdev/f2018/src/js/colour_conversion.js",
 		"/C/webdev/webgl_workshop/js/utils.js",
 		"/C/webdev/webgl_workshop/index.html",
-		"/C/webdev/webgl_workshop/glsl/background.glsl",
 		"/C/webdev/webgl_workshop/glsl/normals.glsl",
-		"/C/webdev/webgl_workshop/glsl/wheels.glsl",
-		"/C/webdev/webgl_workshop/glsl/matcap.glsl",
-		"/C/webdev/webgl_workshop/glsl/base.glsl",
 		"/C/webdev/webgl_workshop/.gitignore",
 		"/C/webdev/lynx/burst/src/glsl/matcap.glsl",
 		"/C/webdev/webgl/src/glsl/components/colour_normals.glslc",
@@ -813,12 +822,11 @@
 		"/Users/gareth/Sites/burst/src/glsl/spray_hit.glsl",
 		"/Users/gareth/Sites/burst/src/glsl/bacteria.glsl",
 		"/Users/gareth/Sites/burst/src/glsl/basemesh.glsl",
-		"/Users/gareth/Sites/burst/src/js/input.js",
-		"/Users/gareth/Sites/burst/src/html/index.html"
+		"/Users/gareth/Sites/burst/src/js/input.js"
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 60.0
 	},
 	"find_in_files":
 	{
@@ -832,7 +840,6 @@
 		"case_sensitive": true,
 		"find_history":
 		[
-			",\n"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -859,15 +866,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8718,
+						"buffer_size": 8568,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1649,
-								1649
+								3468,
+								3468
 							]
 						],
 						"settings":
@@ -876,121 +883,121 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "index.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 799,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								535,
-								535
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "js/utils.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2909,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								155,
-								155
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 3741.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "css/style.css",
+					"buffer": 1,
+					"file": "/C/webdev/PBR/src/common/reflection.glsl",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 512,
+						"buffer_size": 1445,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								298,
-								298
+								940,
+								940
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.sublime-syntax"
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1305.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "/Users/gareth/Sites/f2018/src/js/projection.js",
+					"buffer": 2,
+					"file": "/C/webdev/f2018/src/glslc/gamma.glslc",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2603,
+						"buffer_size": 350,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1955,
-								1761
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 907.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1199,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								227,
+								227
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 174.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "css/style.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 687,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								413,
+								413
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 319.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
@@ -998,19 +1005,19 @@
 				},
 				{
 					"buffer": 5,
-					"file": "js/input.js",
+					"file": "js/utils.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2287,
+						"buffer_size": 3705,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2274,
-								2274
+								3136,
+								3136
 							]
 						],
 						"settings":
@@ -1019,27 +1026,32 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1589.0,
+						"translation.y": 232.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 6,
 					"type": "text"
-				},
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
 				{
 					"buffer": 6,
-					"file": "glsl/wheels.glsl",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1797,
+						"buffer_size": 2300,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								933,
-								933
+								2263,
+								2153
 							]
 						],
 						"settings":
@@ -1048,10 +1060,38 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 180.0,
+						"translation.y": 2108.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "glsl/wheels.glsl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2486,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2024,
+								2024
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1827.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -1074,11 +1114,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.485416666667,
 			1.0
 		],
 		"rows":
@@ -1110,16 +1157,12 @@
 		"selected_items":
 		[
 			[
-				"sty",
-				"css/style.css"
+				"whee",
+				"glsl\\wheels.glsl"
 			],
 			[
-				"cs",
-				"css/style.css"
-			],
-			[
-				"input",
-				"js/input.js"
+				"css",
+				"css\\style.css"
 			],
 			[
 				"inde",
@@ -1132,10 +1175,6 @@
 			[
 				"back",
 				"glsl\\background.glsl"
-			],
-			[
-				"whee",
-				"glsl\\wheels.glsl"
 			],
 			[
 				"bas",
@@ -1184,6 +1223,10 @@
 			[
 				"glsl",
 				"src/initial/matcap.glsl"
+			],
+			[
+				"input",
+				"src/js/input.js"
 			],
 			[
 				"debug",
@@ -1394,6 +1437,10 @@
 				"src/js/assets.js"
 			],
 			[
+				"sty",
+				"build/style.css"
+			],
+			[
 				"m",
 				"src/js/mat4.js"
 			],
@@ -1582,10 +1629,6 @@
 				"src/js/vector.js"
 			],
 			[
-				"css",
-				"build/css/style.css"
-			],
-			[
 				"sta",
 				"src\\js\\stack.js"
 			],
@@ -1620,6 +1663,10 @@
 			[
 				"re",
 				"src\\js\\webgl\\render_target.js"
+			],
+			[
+				"ene",
+				"src\\js\\webgl\\entity.js"
 			]
 		],
 		"width": 0.0
@@ -1646,7 +1693,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
