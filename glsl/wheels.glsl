@@ -3,7 +3,6 @@ attribute vec2 uv2;
 
 varying vec3 _normal;
 varying vec2 _uv;
-varying vec2 _uv2;
 varying vec3 _eye;
 
 //uniform mat3 normalMatrix; -- supplied by THREE
@@ -17,7 +16,6 @@ void main()
 
 	// Our meshes two uv maps
 	_uv = uv;
-	_uv2 = uv2;
 
 	// Eye is the direction of vertex to the camera
 	_eye = vec3(modelViewMatrix * vec4(position, 1.0));
@@ -31,16 +29,18 @@ void main()
 
 varying vec3 _normal;
 varying vec2 _uv;
-varying vec2 _uv2;
 varying vec3 _eye;
 
-uniform vec4 colour;
+uniform vec3 colour;
+uniform vec3 ambient;
+
 uniform float highlight;
 uniform sampler2D envmap;
 uniform sampler2D envmap_blurred;
-uniform sampler2D lightmap;
-uniform sampler2D diffuse;
-uniform float shinyness;
+uniform sampler2D albedo;
+uniform sampler2D roughness;
+uniform sampler2D ao;
+uniform sampler2D normal_map;
 
 const float PI = 3.14159265359;
 const float TAU = 6.28318530718;
@@ -58,46 +58,45 @@ vec2 env_map_equirect(vec3 norm, float flip)
 	return vec2(theta / (TAU), phi / PI);
 }
 
-vec3 desaturate(vec3 color, float amount)
-{
-	vec3 gray = vec3(dot(vec3(0.3, 0.59, 0.11), color));
-	return vec3(mix(gray, color, amount));
-}
 
 void main() 
 {
-	mat4 inv_view = -viewMatrix;
+	vec3 normal = texture2D(normal_map, _uv).rgb * _normal;
 
+	float fr = fresnel(_eye, normal, 0.0, 1.0, 2.0);
+
+	mat4 inv_view = -viewMatrix;
 	vec3 ecEyeDir = -_eye;
     vec3 wcEyeDir = vec3(inv_view * vec4(ecEyeDir, 0.0));
-    vec3 wcNormal = vec3(inv_view * vec4(_normal, 0.0));
+    vec3 wcNormal = vec3(inv_view * vec4(normal, 0.0));
 
     vec3 ref = reflect(-wcEyeDir, normalize(wcNormal));
-    vec2 ruv = env_map_equirect(ref, -1.0);
+    vec2 ruv = env_map_equirect(ref, 1.0);
+
     vec3 env_smooth = texture2D(envmap, ruv).rgb;
+    env_smooth *= env_smooth * 1.3;
+
     vec3 env_rough = texture2D(envmap_blurred, ruv).rgb;
+    env_rough = env_rough * colour;
 
-	float fr = fresnel(_eye, _normal, 0.0, 1.0, 2.0);
+    float rough_sample = 1.0-texture2D(roughness, _uv).r * 2.0;
 
-	// Lightmap
-	float lm = texture2D(lightmap, _uv2).r * 1.65;
-	lm = lm * (lm * 1.2);
+	vec3 env = mix(env_rough,env_smooth, rough_sample);
+	env = mix(env_rough,env, fr);
 
-    vec3 diff = texture2D(diffuse, _uv).rgb;
-    diff *= mix(env_rough, env_smooth, shinyness);
-    diff *= colour.rgb;
-    diff = desaturate(diff, 1.0-fr);
+	//vec3 albedo_sample = texture2D(albedo, _uv).rgb;
+	//vec3 base = colour * albedo_sample.b;
 
-	vec3 env = mix(diff,env_smooth, fr);
+	float ao_sample  = texture2D(ao, _uv).r;
 
-    vec3 rgb = env * lm;
-    rgb += vec3(0.03,0.03,0.0);
+	vec3 rgb = env;//mix(env * colour,env_smooth, fr);
+	rgb *= ao_sample;
 
-    float alpha = 1.0;
+	rgb += vec3(0.02,0.01,0.05);
 
     // Add highlight glow
-	vec3 highlight_colour = vec3(0.2,0.4,1.0) * highlight * (fr + 0.3);
+	vec3 highlight_colour = vec3(0.8,0.8,0.8) * highlight * (fr + 0.3);
 	rgb += highlight_colour;
 
-	gl_FragColor = vec4(rgb, alpha);
+	gl_FragColor = vec4(rgb, 1.0);
 }

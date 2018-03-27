@@ -10,27 +10,6 @@ function hex_to_rgb(hex)
     return new THREE.Vector3(r,g,b);
 }
 
-function Gradient(a,b)
-{
-	var r = 
-	{
-		a: hex_to_rgb(a),
-		b: hex_to_rgb(b),
-	};
-
-	return r;
-}
-
-function blend_gradient(r, a,b,t)
-{
-	r.a.x = THREE.Math.lerp(a.a.x, b.a.x, t);
-	r.a.y = THREE.Math.lerp(a.a.y, b.a.y, t);
-	r.a.z = THREE.Math.lerp(a.a.z, b.a.z, t);
-	r.b.x = THREE.Math.lerp(a.b.x, b.b.x, t);
-	r.b.y = THREE.Math.lerp(a.b.y, b.b.y, t);
-	r.b.z = THREE.Math.lerp(a.b.z, b.b.z, t);
-}
-
 THREE.Material.prototype.set = function(name, value)
 {
 	this.uniforms[name].value = value;

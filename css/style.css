@@ -1,7 +1,15 @@
+@font-face 
+{
+	font-family: 'Karla';
+	src: url('fonts/Teko/Teko-Regular.ttf');
+}
+
 *
 {
 	margin: 0;
 	padding: 0;
+	font-family: 'Teko';
+	color: white;
 }
 
 body
@@ -21,47 +29,72 @@ body
 	position: absolute;
 	width: 100%;
 	height: 100%;
+	user-select:none;
 }
+
+.menu-bg
+{
+	width: 100%;
+    height: 200%;
+    position: absolute;
+    background: #246dcb;
+    transform: translateX(150%) rotate(30deg);
+    transition: transform 0.5s ease-in-out;
+}
+
+.menu-bg.open
+{
+    transform: translateX(50%) rotate(30deg);
+}
+
+.menu
+{
+	position: absolute;
+    left: 60%;
+    top: 40%;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+.menu.open
+{
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.menu h2
+{
+	font-size: 3em;
+    text-transform: uppercase;
+    font-weight: 100;
+    letter-spacing: 14px;
+    line-height: 1;
+}
+
+.menu p
+{
+	text-transform: uppercase;
+}
+
 
 .colour-picker
 {
-	position: absolute;
-	top: 0;
-	left: 0;
+	margin-top: 30px;
 }
 
-.art-picker
+.col
 {
-	position: absolute;
-	top: 0;
-	left: 0;
+	width: 14px;
+    height: 14px;
+    border-radius: 100%;
+    display: inline-block;
+    margin-right: 20px;
+    border: 1px solid white;
+    cursor: pointer;
+    transform-origin: 50% 50%;
+    transition: transform 0.2s ease-out;
 }
-
-.carousel-button
+.col:hover
 {
-	position: absolute;
-	width: 77px;
-	height: 154px;
-	top: 50%;
-	transform: translateY(-50%);
-	/*background: url('../svg/arrow.svg');*/
-	opacity: 0.5;
-	transition: opacity 0.15s ease-out;
-	cursor: pointer;
-}
-
-.carousel-button:hover
-{
-	opacity: 1.0;
-}
-
-.carousel-button.left
-{
-	left: 0px;
-}
-
-.carousel-button.right
-{
-	right: 0px;
-	transform: translateY(-50%) scaleX(-1);
+	transform: scale(1.2);
 }
