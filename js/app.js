@@ -18,53 +18,30 @@ function preload()
 		casing: 'json/casing.json',
 		pads: 'json/pads.json',
 		speakers: 'json/speakers.json',
-		headrest: 'json/headrest.json',
 		cap: 'json/cap.json',
 	});
 
 	// TEXTURES 
 	load_textures(
 	{
-		blank: 'img/blank.png',
-		albedo: 'img/albedo.jpg',
 		normal: 'img/normal.jpg',
 		roughness: 'img/roughness.jpg',
 		ambient_occlusion: 'img/ambient_occlusion.jpg',
-		envmap: 'img/envmap.jpg',
-		envmap_blurred: 'img/env_blurred.jpg',
-		shadow: 'img/shadow.png',
+		shadow: 'img/shadow.jpg',
+		matcap_red: 'img/matcaps/mat_red.jpg',
+		matcap_grey: 'img/matcaps/mat_grey.jpg',
+		matcap_white: 'img/matcaps/mat_white.jpg'
 	});
 
 	// SHADERS 
 	load_shader('debug', 'glsl/debug.glsl');
 
-	
-	/*
-	load_shader('background', 'glsl/background.glsl',
+	load_shader('matcap', 'glsl/matcap.glsl',
 	{
-		colourA: {value: hex_to_rgb('#4972A8') },
-		colourB: {value: hex_to_rgb('#132C65') },
-	});
-	*/
-
-	load_shader('background', 'glsl/background.glsl',
-	{
-		colourA: {value: hex_to_rgb('#252341') },
-		colourB: {value: hex_to_rgb('#0c0b1a') },
-	});
-
-	load_shader('metal', 'glsl/wheels.glsl', 
-	{
-		colour: {value: new THREE.Vector3(1,1,1) },
-		envmap: {value: null},
-		envmap_blurred: {value: null},
-		//shinyness: {value: 1.0},
+		matcap: {value: null },
 		highlight: {value: 0.0},
-		albedo: {value: null},
 		ao: {value: null},
-		roughness: {value: null},
 		normal_map: {value: null},
-		ambient: {value: new THREE.Vector3(0.05,0.02,05)}
 	});
 
 	load_shader('shadow', 'glsl/shadow.glsl',
@@ -91,24 +68,12 @@ function init()
 	var materials = app.assets.materials;
 	var textures = app.assets.textures;
 
-	textures.envmap_blurred.minFilter = THREE.LinearFilter;
-	textures.envmap_blurred.magFilter = THREE.LinearFilter;
-	textures.envmap_blurred.wrapS = THREE.RepeatWrapping;
-	textures.envmap_blurred.wrapT = THREE.RepeatWrapping;
-
-	// BACKGROUND
-
-	meshes.quad = new THREE.PlaneGeometry(2, 2);
-	materials.background.depthTest = false;
-	materials.background.dithering = true;
-
-	app.background = new THREE.Mesh(meshes.quad, materials.background);
-	app.scene.add(app.background);
 
 	// HEADPHONES
 
 	var spinner = new THREE.Group();
 	app.spinner = spinner;
+	spinner.rotation.y = -3.78;
 	spinner.velocity = 0;
 	spinner.spinning = false;
 
@@ -117,83 +82,52 @@ function init()
 	spinner.add(product);
 	product.rotation.x = radians(15);
 
-	var casing_material = materials.metal.clone();
+	var casing_material = materials.matcap.clone();
 	casing_material.setAll
 	({
-		colour: hex_to_rgb('#246dcb'),
-		albedo: textures.albedo,
+		matcap: textures.matcap_red,
 		ao: textures.ambient_occlusion,
-		envmap: textures.envmap,
-		envmap_blurred: textures.envmap_blurred,
-		normal_map: textures.normal
+		normal_map: textures.normal,
 	});
 	var casing = new THREE.Mesh(meshes.casing, casing_material);
 	casing.name = 'casing';
 	product.add(casing);
 
-	var headrest_material = materials.metal.clone();
-	headrest_material.setAll
-	({
-		colour: new THREE.Vector3(0.2,0.2,0.2),
-		albedo: textures.albedo,
-		ao: textures.ambient_occlusion,
-		envmap: textures.envmap_blurred,
-		envmap_blurred: textures.envmap_blurred,
-		normal_map: textures.normal
-	});
 
-	var headrest = new THREE.Mesh(meshes.headrest, headrest_material);
-	headrest.name = 'headrest';
-	product.add(headrest);
-
-
-	var pads_material = materials.metal.clone();
+	var pads_material = materials.matcap.clone();
 	pads_material.setAll
 	({
-		colour: new THREE.Vector3(0.2,0.2,0.2),
-		albedo: textures.albedo,
+		matcap: textures.matcap_grey,
 		ao: textures.ambient_occlusion,
-		envmap: textures.envmap_blurred,
-		envmap_blurred: textures.envmap_blurred,
-		normal_map: textures.normal
+		normal_map: textures.normal,
 	});
-
 	var pads = new THREE.Mesh(meshes.pads, pads_material);
 	pads.name = 'pads';
 	product.add(pads);
 
-
-	var speakers_material = materials.metal.clone();
+	var speakers_material = materials.matcap.clone();
 	speakers_material.setAll
 	({
-		colour: hex_to_rgb('#246dcb'),
-		albedo: textures.albedo,
+		matcap: textures.matcap_red,
 		ao: textures.ambient_occlusion,
-		envmap: textures.envmap,
-		envmap_blurred: textures.envmap_blurred,
-		normal_map: textures.normal
+		normal_map: textures.normal,
 	});
 
 	var speakers = new THREE.Mesh(meshes.speakers, speakers_material);
 	speakers.name = 'speakers';
 	product.add(speakers);
 
-
-	var cap_material = materials.metal.clone();
+	var cap_material = materials.matcap.clone();
 	cap_material.setAll
 	({
-		colour: hex_to_rgb('#ffffff'),
-		albedo: textures.albedo,
+		matcap: textures.matcap_white,
 		ao: textures.ambient_occlusion,
-		envmap: textures.envmap,
-		envmap_blurred: textures.envmap_blurred,
-		normal_map: textures.normal
+		normal_map: textures.normal,
 	});
 
 	var cap = new THREE.Mesh(meshes.cap, cap_material);
 	cap.name = 'cap';
 	product.add(cap);
-
 
 	// SHADOW
 
@@ -216,8 +150,8 @@ function init()
 
 	app.ui = 
 	{
-		menu_bg: document.querySelector('.menu-bg'),
-		menu: document.querySelector('.menu'),
+		//menu_bg: document.querySelector('.menu-bg'),
+		//menu: document.querySelector('.menu'),
 	};
 
 	app.menu_open = false;
@@ -237,9 +171,10 @@ function init()
 
 	// START RENDERER
 
-	app.renderer = new THREE.WebGLRenderer({antialias: true});
-	app.renderer.setSize(window.innerWidth, window.innerHeight);
-	document.querySelector('.webgl').appendChild(app.renderer.domElement);
+	var renderer = new THREE.WebGLRenderer({antialias: true, alpha:true});
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	document.querySelector('.webgl').appendChild(renderer.domElement);
+	app.renderer = renderer;
 
 	app.init = true;
 }
@@ -272,15 +207,15 @@ function update(t)
 
 	if(app.menu_open)
 	{
-		app.ui.menu_bg.classList.add('open');
-		app.ui.menu.classList.add('open');
-		camera.position.x = THREE.Math.lerp(camera.position.x, 0.45, dt * 7.0);
+		//app.ui.menu_bg.classList.add('open');
+		//app.ui.menu.classList.add('open');
+		//camera.position.x = THREE.Math.lerp(camera.position.x, 0.45, dt * 7.0);
 	}
 	else
 	{
-		app.ui.menu_bg.classList.remove('open');
-		app.ui.menu.classList.remove('open');
-		camera.position.x = THREE.Math.lerp(camera.position.x, 0, dt * 7.0);
+		//app.ui.menu_bg.classList.remove('open');
+		//app.ui.menu.classList.remove('open');
+		//camera.position.x = THREE.Math.lerp(camera.position.x, 0, dt * 7.0);
 	}
 
 	// Raycasting
@@ -365,19 +300,6 @@ function update(t)
 
 	spinner.rotation.y += spinner.velocity;
 	spinner.velocity *= 0.91;
-
-	
-
-
-	// ANIMATE BACKGROUND GRADIENT
-
-	/*
-	var current_grad = app.colours[carousel.index];
-	blend_gradient(carousel.gradient, carousel.gradient, current_grad, dt * 5.0);
-	carousel.background.material.uniforms.colourA.value = carousel.gradient.a;
-	carousel.background.material.uniforms.colourB.value = carousel.gradient.b;
-	*/
-
 
 	render();
 	update_input();

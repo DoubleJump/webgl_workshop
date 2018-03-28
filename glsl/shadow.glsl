@@ -14,7 +14,6 @@ uniform sampler2D shadow;
 
 void main() 
 {
-    float sample = texture2D(shadow, _uv).a * 0.3;
-
+    float sample = (1.0-texture2D(shadow, _uv).r) * 0.3;
 	gl_FragColor = vec4(0.0,0.0,0.0, sample);
 }

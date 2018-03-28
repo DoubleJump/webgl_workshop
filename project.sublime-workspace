@@ -523,16 +523,8 @@
 			"file": "js/app.js",
 			"settings":
 			{
-				"buffer_size": 8377,
+				"buffer_size": 6479,
 				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "glsl/background.glsl",
-			"settings":
-			{
-				"buffer_size": 374,
 				"line_ending": "Unix"
 			}
 		},
@@ -540,7 +532,7 @@
 			"file": "js/utils.js",
 			"settings":
 			{
-				"buffer_size": 3311,
+				"buffer_size": 3315,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -549,7 +541,7 @@
 			"file": "index.html",
 			"settings":
 			{
-				"buffer_size": 858,
+				"buffer_size": 912,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -558,35 +550,9 @@
 			"file": "css/style.css",
 			"settings":
 			{
-				"buffer_size": 936,
+				"buffer_size": 1205,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "glsl/wheels.glsl",
-			"settings":
-			{
-				"buffer_size": 2333,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "var app = \n{\n\tinit: false,\n\tassets:\n\t{\n\t\tmeshes: {},\n\t\ttextures: {},\n\t\tmaterials: {},\n\t\tload_count: 0,\n\t},\n};\n\nfunction preload()\n{\n\t// MESHES \n\tload_meshes(\n\t{\n\t\tbase: 'json/skateboard_base.json',\n\t\ttop: 'json/skateboard_top.json',\n\t\ttrucks: 'json/skateboard_trucks.json',\n\t\twheels: 'json/skateboard_wheels.json',\n\t});\n\n\t// TEXTURES \n\tload_textures(\n\t{\n\t\tblank: 'img/blank.png',\n\t\tlightmap: 'img/lightmap.png',\n\t\tshadow: 'img/shadow.jpg',\n\t\tenvmap: 'img/envmap.jpg',\n\t\tenvmap_blurred: 'img/env_blurred.jpg',\n\t\tboardA: 'img/boardA.png',\n\t});\n\n\t// SHADERS \n\tload_shader('background', 'glsl/background.glsl',\n\t{\n\t\tcolourA: {value: new THREE.Vector3(0.2,0.1,0.3,1) },\n\t\tcolourB: {value: new THREE.Vector3(0.2,0.1,0.3,1) },\n\t});\n\n\tload_shader('metal', 'glsl/wheels.glsl', \n\t{\n\t\tcolour: {value: new THREE.Vector4(1,1,1,1) },\n\t\tenvmap: {value: null},\n\t\tenvmap_blurred: {value: null},\n\t\tlightmap: {value: null},\n\t\tdiffuse: {value: null},\n\t\tshinyness: {value: 1.0},\n\t\thighlight: {value: 0.0},\n\t});\n\n\tload_shader('shadow', 'glsl/shadow.glsl',\n\t{\n\t\tshadow: {value: null },\n\t});\n}\nwindow.addEventListener('load', preload);\n\nfunction init() \n{\n\tapp.last_time = performance.now(); //@todo replace with Threejs clock thingy\n\n\tapp.input = Input();\n\tapp.scene = new THREE.Scene();\n\tapp.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.01, 100);\n\tapp.camera.position.set(0,-0.08,3.3);\n\n\tapp.carousel = \n\t{\n\t\troot: new THREE.Group(),\n\t\titems: [],\n\t\tbackground: null,\n\t\tgradient: Gradient('#4972A8', '#132C65'),\n\t\tindex: 0,\n\t\tgap: 3.4, // @TODO work this out from camera projection\n\t\tcurrent_board: null,\n\t\tcurrent_component: null,\n\t\tspinning: false,\n\t};\n\n\tapp.colours = \n\t[\n\t\tGradient('#4972A8', '#132C65'),\n\t\tGradient('#8D1114', '#B31922'),\n\t\tGradient('#FFFB02', '#e0b200'),\n\t];\n\n\tvar carousel = app.carousel;\n\tvar meshes = app.assets.meshes;\n\tvar materials = app.assets.materials;\n\tvar textures = app.assets.textures;\n\n\ttextures.envmap_blurred.minFilter = THREE.LinearFilter;\n\ttextures.envmap_blurred.magFilter = THREE.LinearFilter;\n\ttextures.envmap_blurred.wrapS = THREE.RepeatWrapping;\n\ttextures.envmap_blurred.wrapT = THREE.RepeatWrapping;\n\n\tmaterials.shadow.uniforms.shadow.value = textures.shadow;\n\tmaterials.shadow.transparent = true;\n\n\tmeshes.shadow = new THREE.PlaneGeometry(2, 1);\n\n\t// BACKGROUND\n\n\tmeshes.quad = new THREE.PlaneGeometry(2, 2);\n\tmaterials.background.depthTest = false;\n\tmaterials.background.dithering = true;\n\n\tapp.carousel.background = new THREE.Mesh(meshes.quad, materials.background);\n\tapp.scene.add(app.carousel.background);\n\n\t// SKATEBOARDS\n\n\tvar num_skateboards = 3;\n\tfor(var i = 0; i < num_skateboards; ++i)\n\t{\n\t\tvar skateboard = {};\n\t\tskateboard.spin_velocity = 0;\n\n\t\tvar group = new THREE.Group();\n\t\tgroup.position.x = i * carousel.gap;\n\t\tgroup.rotation.set(0, radians(45), radians(-120));\n\t\tgroup.parent = carousel.root;\n\t\tskateboard.group = group;\n\n\t\t// TOP OF SKATEBOARD\n\t\tvar top_material = materials.metal.clone();\n\t\ttop_material.setAll\n\t\t({\n\t\t\tcolour: new THREE.Vector3(0.2,0.2,0.2),\n\t\t\tlightmap: textures.lightmap,\n\t\t\tdiffuse: textures.blank,\n\t\t\tenvmap: textures.envmap,\n\t\t\tenvmap_blurred: textures.envmap_blurred,\n\t\t\tshinyness: 0.0,\n\t\t});\n\t\tskateboard.top = new THREE.Mesh(meshes.top, top_material);\n\t\tskateboard.top.name = 'top';\n\t\tgroup.add(skateboard.top);\n\n\t\t// BASE OF SKATEBOARD\n\t\tvar base_material = materials.metal.clone();\n\t\tbase_material.setAll\n\t\t({\n\t\t\tlightmap: textures.lightmap,\n\t\t\tdiffuse: textures.boardA,\n\t\t\tenvmap: textures.envmap,\n\t\t\tenvmap_blurred: textures.envmap_blurred,\n\t\t\tshinyness: 0.1,\n\t\t});\n\t\tskateboard.base = new THREE.Mesh(meshes.base, base_material);\n\t\tskateboard.base.name = 'base';\n\t\tgroup.add(skateboard.base);\n\n\t\t// WHEELS\n\t\tvar wheel_material = materials.metal.clone();\n\t\twheel_material.setAll\n\t\t({\n\t\t\tcolour: new THREE.Vector3(0.1,0.1,0.11),\n\t\t\tlightmap: textures.lightmap,\n\t\t\tdiffuse: textures.blank,\n\t\t\tenvmap: textures.envmap,\n\t\t\tenvmap_blurred: textures.envmap_blurred,\n\t\t\tshinyness: 0.8,\n\t\t});\n\t\tskateboard.wheels = new THREE.Mesh(meshes.wheels, wheel_material);\n\t\tskateboard.wheels.name = 'wheels';\n\t\tgroup.add(skateboard.wheels);\n\n\t\t// TRUCKS\n\t\tvar truck_material = materials.metal.clone();\n\t\ttruck_material.setAll\n\t\t({\n\t\t\tcolour: new THREE.Vector3(0.4,0.4,0.4),\n\t\t\tlightmap: textures.lightmap,\n\t\t\tdiffuse: textures.blank,\n\t\t\tenvmap: textures.envmap,\n\t\t\tenvmap_blurred: textures.envmap_blurred,\n\t\t\tshinyness: 1.0,\n\t\t});\n\t\tskateboard.trucks = new THREE.Mesh(meshes.trucks, truck_material);\n\t\tskateboard.trucks.name = 'trucks';\n\t\tgroup.add(skateboard.trucks);\n\n\t\t// SHADOW\n\t\tvar shadow_material = materials.shadow;\n\t\tskateboard.shadow = new THREE.Mesh(meshes.shadow, shadow_material);\n\t\tskateboard.shadow.rotation.x = radians(90);\n\t\tskateboard.shadow.rotation.y = radians(-60);\n\t\tskateboard.shadow.position.x = 1.0;\n\t\tskateboard.shadow.position.y = 1.0;\n\n\t\tskateboard.trucks.name = 'shadow';\n\t\tgroup.add(skateboard.shadow);\n\n\t\tcarousel.items.push(skateboard);\n\t\tcarousel.root.add(group);\n\t}\n\n\tapp.scene.add(carousel.root);\n\n\n\t// RAYCASTING\n\n\tapp.raycaster = new THREE.Raycaster();\n\n\t// COLOUR PICKER\n\t/*\n\tapp.picker = document.querySelector('.colour-picker');\n\tapp.picker.addEventListener('change', function(e)\n\t{\n\t\tvar component = app.carousel.current_component;\n\t\tif(!component) return;\n\t\tvar colour = component.material.uniforms.colour.value;\n\t\thex_to_rgb(colour, e.target.value, true);\n\t});\n\t*/\n\n\t// LEFT / RIGHT BUTTONS\n\n\tvar button_left = document.querySelector('.carousel-button.left');\n\tvar button_right = document.querySelector('.carousel-button.right');\n\tbutton_left.addEventListener('click', carousel_prev);\n\tbutton_right.addEventListener('click', carousel_next);\n\n\t// START RENDERER\n\n\tapp.renderer = new THREE.WebGLRenderer({antialias: true});\n\tapp.renderer.setSize(window.innerWidth, window.innerHeight);\n\tdocument.querySelector('.webgl').appendChild(app.renderer.domElement);\n\n\tapp.init = true;\n}\n\nfunction carousel_next()\n{\n\tvar carousel = app.carousel;\n\tcarousel.index ++;\n\tcarousel.current_component = null;\n\tcarousel.index = clamp(carousel.index, 0, carousel.items.length-1);\n\tcarousel.current_board = carousel.items[carousel.index];\n}\n\nfunction carousel_prev()\n{\n\tvar carousel = app.carousel;\n\tcarousel.index --;\n\tcarousel.current_component = null;\n\tcarousel.index = clamp(carousel.index, 0, carousel.items.length-1);\n\tcarousel.current_board = carousel.items[carousel.index];\n}\n\nfunction update(t)\n{\n\trequestAnimationFrame(update);\n\t\n\tvar dt = (t - app.last_time) / 1000;\n\tapp.last_time = t;\n\n\tif(app.assets_loaded === false) return;\n\n\tvar carousel = app.carousel;\n\tcarousel.current_board = carousel.items[carousel.index];\n\n\tvar camera = app.camera;\n\tdebug_camera_movement(camera, dt);\n\n\t// Raycasting\n\n\tfor(var i = 0; i < carousel.items.length; ++i)\n\t{\n\t\tvar children = carousel.items[i].group.children;\n\t\tfor(var j = 0; j < children.length; ++j)\n\t\t{\n\t\t\tvar child = children[j];\n\t\t\tif(child.material.uniforms.highlight)\n\t\t\t\tchild.material.uniforms.highlight.value = 0.0;\n\t\t}\n\t}\n\n\tvar normalized_mouse = new THREE.Vector3();\n\tscreen_to_normalized_device(normalized_mouse, input.mouse.position);\n\tapp.raycaster.setFromCamera(normalized_mouse, camera);\n\tvar intersects = app.raycaster.intersectObjects(carousel.current_board.group.children, true);\n\tif(intersects.length > 0)\n\t{\n\t\tvar hit = intersects[0];\n\n\t\tif(key_down(Keys.MOUSE_LEFT))\n\t\t{\n\t\t\tcarousel.can_spin = true;\n\t\t\tcarousel.current_component = hit.object;\n\n\t\t\tswitch(hit.object.name)\n\t\t\t{\n\t\t\t\tcase 'base':\n\t\t\t\t{\n\t\t\t\t\t//show texture picker\n\t\t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t\tcase 'wheels':\n\t\t\t\t{\n\t\t\t\t\t//show colour picker\n\t\t\t\t\tcarousel.current_board.spin_velocity = 0;\n\t\t\t\t\tvar point = new THREE.Vector3();\n\t\t\t\t\tworld_to_screen(point, hit.point, app.camera);\n\t\t\t\t\t\n\t\t\t\t\tapp.picker.style.transform = 'translate(' + point.x + 'px, ' + point.y + 'px)';\n\t\t\t\t\tapp.picker.click();\n\t\t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t\tcase 'trucks':\n\t\t\t\t{\n\t\t\t\t\t//show colour picker\n\t\t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\tif(hit.object.material.uniforms.highlight)\n\t\t\thit.object.material.uniforms.highlight.value = 1.0;\n\t}\n\n\n\t// Keyboard cycling\n\n\tif(key_down(Keys.LEFT)) carousel_prev();\n\tif(key_down(Keys.RIGHT)) carousel_next();\n\n\tif(key_down(Keys.MOUSE_LEFT) &! carousel.spinning)\n\t{\n\t\tcarousel.spinning = true;\t\n\t}\n\tif(key_up(Keys.MOUSE_LEFT))\n\t{\n\t\tif(carousel.spinning)\n\t\t{\n\t\t\tcarousel.current_board.spin_velocity = input.mouse.delta.x * dt;\n\t\t}\n\t\tcarousel.spinning = false;\n\t}\n\n\tif(carousel.spinning)\n\t{\n\t\tcarousel.current_board.spin_velocity = input.mouse.delta.x * dt;\n\t}\n\n\tcarousel.current_board.group.rotation.y += carousel.current_board.spin_velocity;\n\tcarousel.current_board.spin_velocity *= 0.91;\n\n\tcarousel.index = clamp(carousel.index, 0, carousel.items.length-1);\n\tcarousel.root.position.x = THREE.Math.lerp(carousel.root.position.x, -carousel.index * carousel.gap, dt * 5.0);\n\n\t\n\tfor(var i = 0; i < carousel.items.length; ++i)\n\t{\n\t\tvar item = carousel.items[i].group;\n\n\t\tvar scale = item.scale.x;\n\t\tif(i === carousel.index)\n\t\t{\n\t\t\titem.position.z = THREE.Math.lerp(item.position.z, 1.0, dt * 5.0);\n\t\t}\n\t\telse\n\t\t{\n\t\t\titem.position.z = THREE.Math.lerp(item.position.z, 0.0, dt * 5.0);\n\t\t}\n\t}\n\n\n\t// ANIMATE BACKGROUND GRADIENT\n\n\tvar current_grad = app.colours[carousel.index];\n\tblend_gradient(carousel.gradient, carousel.gradient, current_grad, dt * 5.0);\n\tcarousel.background.material.uniforms.colourA.value = carousel.gradient.a;\n\tcarousel.background.material.uniforms.colourB.value = carousel.gradient.b;\n\n\trender();\n\tupdate_input();\n}\n\nfunction render() \n{\n\tapp.renderer.render(app.scene, app.camera);\n}\n\n",
-			"settings":
-			{
-				"buffer_size": 9540,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "glsl/debug.glsl",
-			"settings":
-			{
-				"buffer_size": 144,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
 			}
 		}
 	],
@@ -695,6 +661,10 @@
 	],
 	"file_history":
 	[
+		"/C/webdev/headphones/glsl/wheels.glsl",
+		"/C/webdev/headphones/glsl/debug.glsl",
+		"/C/webdev/headphones/glsl/shadow.glsl",
+		"/C/webdev/headphones/glsl/background.glsl",
 		"/C/webdev/headphones/glsl/base.glsl",
 		"/C/webdev/headphones/json/casing.json",
 		"/C/webdev/webgl_workshop/css/style.css",
@@ -818,11 +788,7 @@
 		"/Users/gareth/Sites/burst/src/js/random.js",
 		"/Users/gareth/Sites/burst/src/js/texture.js",
 		"/Users/gareth/Sites/burst/src/js/assets.js",
-		"/Users/gareth/Sites/burst/src/js/projection.js",
-		"/Users/gareth/Sites/burst/src/js/mat4.js",
-		"/Users/gareth/Sites/burst/src/js/entity.js",
-		"/Users/gareth/Sites/burst/src/js/manifest.js",
-		"/Users/gareth/Sites/burst/src/js/math.js"
+		"/Users/gareth/Sites/burst/src/js/projection.js"
 	],
 	"find":
 	{
@@ -863,7 +829,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -872,15 +838,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8377,
+						"buffer_size": 6479,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6145,
-								6145
+								251,
+								251
 							]
 						],
 						"settings":
@@ -889,7 +855,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 6885.0,
+						"translation.y": 243.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -897,11 +863,11 @@
 				},
 				{
 					"buffer": 1,
-					"file": "glsl/background.glsl",
+					"file": "js/utils.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 374,
+						"buffer_size": 3315,
 						"regions":
 						{
 						},
@@ -914,59 +880,31 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "js/utils.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3311,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								294,
-								294
-							]
-						],
-						"settings":
-						{
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3483.0,
+						"translation.y": 567.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 2,
 					"file": "index.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 858,
+						"buffer_size": 912,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								262,
-								262
+								275,
+								275
 							]
 						],
 						"settings":
@@ -978,120 +916,42 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
-				},
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
 				{
-					"buffer": 4,
+					"buffer": 3,
 					"file": "css/style.css",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 936,
+						"buffer_size": 1205,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								483,
-								483
+								598,
+								598
 							]
 						],
 						"settings":
 						{
+							"history_list_is_closing": true,
 							"syntax": "Packages/CSS/CSS.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 972.0,
+						"translation.y": 567.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "glsl/wheels.glsl",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2333,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2299,
-								2299
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1620.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9540,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								9540,
-								9540
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 9551.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "glsl/debug.glsl",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 144,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								100,
-								100
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -1114,11 +974,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.551041666667,
 			1.0
 		],
 		"rows":
@@ -1149,6 +1016,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"shad",
+				"glsl\\shadow.glsl"
+			],
 			[
 				"back",
 				"glsl\\background.glsl"
@@ -1288,10 +1159,6 @@
 			[
 				"mesh",
 				"src/js/mesh.js"
-			],
-			[
-				"shad",
-				"src/js/shader.js"
 			],
 			[
 				"shader",

@@ -54,12 +54,12 @@ function world_to_screen(out, world, camera)
 	out.x = (pos.x * width) + width;
 	out.y = -(pos.y * height) + height;
 }
-
+/*
 function set_to_uniform(mesh, name, value)
 {
 	mesh.material.uniforms[name].value = value;
 }
-
+*/
 function load_shader(name, url, uniforms, options)
 {
 	app.assets.load_count++;
