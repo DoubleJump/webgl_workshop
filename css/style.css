@@ -1,22 +1,24 @@
 @font-face 
 {
-	font-family: 'Teko';
-	src: url('fonts/Teko/Teko-Regular.ttf');
+    font-family: 'Teko';
+    src: url('fonts/Teko/Teko-Regular.ttf');
 }
 
 *
 {
-	margin: 0;
-	padding: 0;
-	font-family: 'Teko';
-	color: white;
+    margin: 0;
+    padding: 0;
+    font-family: 'Teko';
+    font-weight: 100;
+    color: white;
+    text-transform: uppercase;
 }
 
 body
 {
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
     background: white;
 }
 
@@ -26,17 +28,79 @@ body
     text-align: center;
     width: 100%;
     height: 100%;
-    background: #d6cff3;
+    background: #E9E7F7;
 }
+
+
+.preloader
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #d2cfe5;
+    pointer-events: none;
+}
+
+.preloader .bars
+{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+@keyframes mark-anim
+{
+    0%
+    { 
+        transform: scaleY(0);
+        opacity: 1;
+    }
+    100%
+    { 
+        transform: scaleY(1);
+        opacity: 0;
+    }
+}
+
+.preloader .bar
+{
+    width: 3px;
+    height: 50px;
+    margin-left: 2px;
+    margin-right: 2px;
+    transform-origin: 50% 50%;
+    display: inline-block;
+    animation: mark-anim 1s infinite;
+    background: white;
+}
+
+.preloader .bar:nth-child(1)
+{
+    animation-duration: 1s;
+}
+.preloader .bar:nth-child(2)
+{
+    animation-duration: 1.3s;
+}
+.preloader .bar:nth-child(3)
+{
+    animation-duration: 0.8s;
+}
+.preloader .bar:nth-child(3)
+{
+    animation-duration: 0.4s;
+}
+
 
 .angle
 {
     position: absolute;
     width: 100%;
     height: 100%;
-    left: 10%;
+    left: 0;
     top: 0;
-    fill: rgb(91, 45, 217);
 }
 
 .background h2
@@ -45,48 +109,177 @@ body
     width: 100%;
     top: 50%;
     transform: translateY(-50%);
-    color: #917aee;
+    color: #BFA4FA;
     font-weight: 400;
     font-size: 7em;
-    text-transform: uppercase;
+    opacity: 0.24;
     user-select: none;
+    letter-spacing: 20px;
 }
 
 .webgl
 {
-	position: absolute;
+    position: absolute;
 }
 
 .ui
 {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	user-select:none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    user-select:none;
+}
+
+.burger
+{
+    position: absolute;
+    top: 50px;
+    left: 50px;
+}
+
+.burger div
+{
+    width: 24px;
+    height: 1px;
+    background: #261493;
+    margin-bottom: 7px;
+}
+
+.burger div:nth-child(2)
+{
+    margin-left: 5px;
+}
+
+nav
+{
+    position: absolute;
+    top: 50px;
+    right: 50px;
+}
+
+nav p
+{
+    color: #E9E7F7;
+    font-size: 0.8em;
+    opacity: 0.6;
+    text-align: right;
+}
+
+nav p.active
+{
+    opacity: 1;
+    margin-right: 20px;
+}
+
+nav p.active:after
+{
+    content: '';
+    display: block;
+    position: absolute;
+    width: 12px;
+    height: 1px;
+    right: 0;
+    top: 10px;
+    background: #E9E7F7;
+}
+
+.price
+{
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    text-align: right;
+}
+
+.price p
+{
+    color: #E9E7F7;
+    font-size: 0.8em;
+    opacity: 0.6;
+    line-height: 1;
+}
+
+.price h2
+{
+    color: #FFFFFF;
+    font-size: 2.8em;
+    line-height: 1.0em;
 }
 
 .colour-picker
 {
     position: absolute;
-    bottom: 60px;
-    right: 10%;
+    bottom: 50px;
+    left: 50px;
+}
+
+.colour-picker p
+{
+    position: absolute;
+    color: #625DA0;
+    width: 200px;
+    top: 18px;
+    left: 2px;
+    font-size: 0.8em;
 }
 
 .colour
 {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 62px;
     display: inline-block;
-    margin-left: 5px;
-    margin-right: 5px;
-    border-radius: 100%;
-    transform-origin: 50% 50%;
+    margin-left: 3px;
+    margin-right: 3px;
     cursor: pointer;
-    border: 1px solid white;
-    transition: transform 0.2s ease-out;
+    position: relative;
 }
 
-.colour:hover
+.colour div
 {
-    transform:scale(1.2);
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    left:0;
+    bottom:0;
+    transform-origin: 50% 100%;
+    transition: transform 0.2s ease-out;
+    pointer-events: none;
+}
+
+.colour.active div,
+.colour:hover div
+{
+    transform:scaleY(5.0);
+}
+
+.marker
+{
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    opacity: 0;
+}
+.marker.visible
+{
+    opacity: 1;
+}
+
+.marker p
+{
+    position: absolute;
+    color: #ffffff;
+    width: 112px;
+    height: 56px;
+    left: 0px;
+    top: 14px;
+    font-size: 1.0em;
+    text-align: center;
+}
+
+.marker-label
+{
+    position: absolute;
+    width:112px;
+    height: 56px;
+    fill: #00A4FF;
 }

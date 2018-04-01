@@ -9,27 +9,81 @@
 <body>
 
 	<div class='background'>
-		<svg class='angle' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" preserveAspectRatio="none">
-		  <polygon points="0 256 256 256 256 0 0 256"/>
+		<svg class='angle' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080" preserveAspectRatio='none'>
+		  <defs>
+		    <linearGradient id="angle-gradient" x1="2274.34" y1="1239.37" x2="682.34" y2="263.37" gradientUnits="userSpaceOnUse">
+		      <stop offset="0" stop-color="#d25afc"/>
+		      <stop offset="1" stop-color="#2700bd"/>
+		    </linearGradient>
+		  </defs>
+		  <polygon points="1427.13 0 347.13 1080 1920 1080 1920 0 1427.13 0" style="fill: url(#angle-gradient)"/>
 		</svg>
-		<h2>Some Text Here</h2>
+
+		<h2>ultraviolet</h2>
 	</div>
 
 	<div class='webgl'></div>
 
 	<div class='ui'>
+
+		<div class='burger'>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+
+		<nav>
+			<p class='active'>headphones</p>
+			<p>speakers</p>
+			<p>accessories</p>
+		</nav>
+
 		<div class='colour-picker'>
-			<div class='colour' style="background:rgb(103, 53, 241)"></div>
-			<div class='colour' style="background:rgb(241, 53, 235)"></div>
-			<div class='colour' style="background:rgb(255, 235, 0)"></div>
-			<div class='colour' style="background:rgb(103, 53, 241)"></div>
+			<p>choose a colour</p>
+			<div class='colour active' data-colour='ultraviolet'>
+				<div style='background:rgb(103, 53, 241)'></div>
+			</div>
+			<div class='colour' data-colour='hotpink'>
+				<div style='background:rgb(241, 53, 235)'></div>
+			</div>
+			<div class='colour' data-colour='solarflare'>
+				<div style='background:rgb(255, 235, 0)'></div>
+			</div>
+			<div class='colour' data-colour='midnight'>
+				<div style='background:rgb(15, 15, 15)'></div>
+			</div>
+		</div>
+
+		<div class='marker'>
+			<svg class='marker-label' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 128">
+			  <polygon points="256 84.45 256 0 44.55 0 0 43.55 0 128 212.45 128 256 84.45"/>
+			</svg>
+			<p>part name</p>
+		</div>
+
+		<div class='price'>
+			<p>price</p>
+			<h2>£149</h2>
 		</div>
 	</div>
 
+	<div class='preloader'>
+		<div class='bars'>
+			<div class='bar'></div>
+			<div class='bar'></div>
+			<div class='bar'></div>
+			<div class='bar'></div>
+		</div>
+	<div>
+
+    <script src="js/TimelineMax.js"></script>
+    <script src="js/TweenMax.js"></script>
     <script src="js/three.min.js"></script>
     <script src="js/input.js"></script>
     <script src="js/utils.js"></script>
+    <script src="js/animations.js"></script>
     <script src="js/app.js"></script>
+
 </body>
 
 </html>

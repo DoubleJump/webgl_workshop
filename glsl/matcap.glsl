@@ -33,10 +33,10 @@ varying vec3 _normal;
 varying vec3 _eye;
 
 uniform float hue;
+//uniform vec3 highlight_rgb;
 uniform float highlight;
 uniform sampler2D matcap;
 uniform sampler2D ao;
-uniform sampler2D normal_map;
 
 float fresnel(vec3 E, vec3 N, float bias, float scale, float power)
 {
@@ -45,13 +45,7 @@ float fresnel(vec3 E, vec3 N, float bias, float scale, float power)
 
 void main() 
 {
-	vec3 normal = _normal;
-	//vec3 normal = normalMatrix * texture2D(normal_map, _uv).rgb * _normal;
-
-	float fr = fresnel(_eye, normal, 0.0, 1.0, 2.0);
-
-	vec2 muv = vec2(viewMatrix * vec4(normalize(normal), 0)) * 0.5 + vec2(0.5,0.5);
-	//muv.y = 1.0 - muv.y;
+	vec2 muv = vec2(viewMatrix * vec4(normalize(_normal), 0)) * 0.5 + vec2(0.5,0.5);
 
 	vec3 rgb = texture2D(matcap, muv).rgb;
 
@@ -59,9 +53,9 @@ void main()
 	rgb *= ao_sample;
 
 	// Add highlight glow
-	vec3 highlight_colour = vec3(0.8,0.8,0.8) * highlight * (fr + 0.3);
+	float fr = fresnel(_eye, _normal, 0.0, 1.0, 2.0);
+	vec3 highlight_colour = vec3(0.2,0.6,0.9) * highlight * (fr + 0.3);
 	rgb += highlight_colour;
-
 
 	gl_FragColor = vec4(rgb, 1.0);
 }

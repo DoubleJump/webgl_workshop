@@ -19,7 +19,6 @@ THREE.Material.prototype.setAll = function(uniforms)
 {
 	for(var k in uniforms)
 	{
-		console.log(k);
 		this.uniforms[k].value = uniforms[k];
 	}
 }
@@ -54,14 +53,10 @@ function world_to_screen(out, world, camera)
 	out.x = (pos.x * width) + width;
 	out.y = -(pos.y * height) + height;
 }
-/*
-function set_to_uniform(mesh, name, value)
-{
-	mesh.material.uniforms[name].value = value;
-}
-*/
+
 function load_shader(name, url, uniforms, options)
 {
+	app.assets.total++;
 	app.assets.load_count++;
 
 	var rq = new XMLHttpRequest(); 
@@ -94,6 +89,7 @@ function load_shader(name, url, uniforms, options)
 
 function load_mesh(name, url)
 {
+	app.assets.total++;
 	app.assets.load_count++;
 	var loader = new THREE.JSONLoader();
 	loader.load
@@ -120,6 +116,7 @@ function load_meshes(meshes)
 
 function load_texture(name, url)
 {
+	app.assets.total++;
 	app.assets.load_count++;
 	var loader = new THREE.TextureLoader();
 	loader.load
@@ -148,8 +145,8 @@ function check_assets_loaded()
 {
 	if(app.assets.load_count === 0 && app.init === false)
 	{
+		//app.preloader.root.style.display = 'none';
 		init();
-		requestAnimationFrame(update);
 	}
 }
 
