@@ -1,6 +1,5 @@
 var app = 
 {
-	init: false,
 	current_colour: 'ultraviolet',
 	assets:
 	{
@@ -15,32 +14,26 @@ var app =
 function preload()
 {
 	app.preloader = document.querySelector('.preloader');
-	
 
-	// MESHES 
-	load_meshes(
-	{
-		casing: 'json/casing.json',
-		pads: 'json/pads.json',
-		speakers: 'json/speakers.json',
-		cap: 'json/cap.json',
-	});
+	// Meshes
 
-	// TEXTURES 
-	load_textures(
-	{
-		ambient_occlusion: 'img/ambient_occlusion.jpg',
-		shadow: 'img/shadow.jpg',
-		matcap_violet: 'img/matcaps/mat_violet.jpg',
-		matcap_grey: 'img/matcaps/mat_grey.jpg',
-		matcap_pink: 'img/matcaps/mat_pink.jpg',
-		matcap_yellow: 'img/matcaps/mat_yellow.jpg',
-		matcap_black: 'img/matcaps/mat_black.jpg',
-		matcap_white: 'img/matcaps/mat_white.jpg',
-	});
+	load_mesh('casing', 'json/casing.json');
+	load_mesh('pads', 'json/pads.json');
+	load_mesh('speakers', 'json/speakers.json');
+	load_mesh('cap', 'json/cap.json');
 
-	// SHADERS 
-	load_shader('debug', 'glsl/debug.glsl');
+	// Textures
+
+	load_texture('ambient_occlusion', 'img/ambient_occlusion.jpg');
+	load_texture('shadow', 'img/shadow.jpg');
+	load_texture('matcap_violet', 'img/matcaps/mat_violet.jpg');
+	load_texture('matcap_grey', 'img/matcaps/mat_grey.jpg');
+	load_texture('matcap_pink', 'img/matcaps/mat_pink.jpg');
+	load_texture('matcap_yellow', 'img/matcaps/mat_yellow.jpg');
+	load_texture('matcap_black', 'img/matcaps/mat_black.jpg');
+	load_texture('matcap_white', 'img/matcaps/mat_white.jpg');
+
+	// Shaders
 
 	load_shader('matcap', 'glsl/matcap.glsl',
 	{
@@ -57,34 +50,50 @@ function preload()
 }
 window.addEventListener('load', preload);
 
-function init() 
+function start() 
 {
 	app.debug_mode = false;
 
-	app.last_tick = performance.now(); //@todo replace with Threejs clock thingy
+	// Create a new scene, and time tracker
 
 	app.input = Input();
+	app.time = new THREE.Clock();
 	app.scene = new THREE.Scene();
-	app.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.01, 100);
+
+	// Camera
+
+	var field_of_view = 60;
+	var aspect_ratio = window.innerWidth / window.innerHeight;
+	var near_clip = 0.01;
+	var far_clip = 100;
+
+	app.camera = new THREE.PerspectiveCamera(field_of_view, aspect_ratio, near_clip, far_clip);
+
+	// Pull the camera away from the center a bit so
+	// we can see the headphones
 	app.camera.position.set(0,0,1.5);
+
+	// Asset shortucts
 
 	var meshes = app.assets.meshes;
 	var materials = app.assets.materials;
 	var textures = app.assets.textures;
 
-
-	// HEADPHONES
+	// Spinner
 
 	var spinner = new THREE.Group();
-	app.spinner = spinner;
 	app.spin_scale = 0;
 	spinner.velocity = 0;
 	spinner.spinning = false;
+	app.spinner = spinner;
 
-	var product = new THREE.Group();
-	app.product = product;
-	spinner.add(product);
-	product.rotation.x = radians(15);
+	// Headphones
+
+	var headphones = new THREE.Group();
+	app.headphones = headphones;
+	headphones.rotation.x = radians(15);
+
+	// Casing
 
 	var casing_material = materials.matcap.clone();
 	casing_material.setAll
@@ -95,7 +104,8 @@ function init()
 	});
 	var casing = new THREE.Mesh(meshes.casing, casing_material);
 	casing.name = 'casing';
-	product.add(casing);
+
+	// Speakers
 
 	var speakers_material = materials.matcap.clone();
 	speakers_material.setAll
@@ -107,7 +117,8 @@ function init()
 
 	var speakers = new THREE.Mesh(meshes.speakers, speakers_material);
 	speakers.name = 'speakers';
-	product.add(speakers);
+
+	// Pads
 
 	var pads_material = materials.matcap.clone();
 	pads_material.setAll
@@ -116,9 +127,11 @@ function init()
 		ao: textures.ambient_occlusion,
 		normal_map: textures.normal,
 	});
+
 	var pads = new THREE.Mesh(meshes.pads, pads_material);
 	pads.name = 'pads';
-	product.add(pads);
+
+	// Cap
 
 	var cap_material = materials.matcap.clone();
 	cap_material.setAll
@@ -130,9 +143,17 @@ function init()
 
 	var cap = new THREE.Mesh(meshes.cap, cap_material);
 	cap.name = 'cap';
-	product.add(cap);
 
-	// SHADOW
+	// Scene Heirarchy [Guide link to scene structure]
+
+	headphones.add(casing);
+	headphones.add(speakers);
+	headphones.add(pads);
+	headphones.add(cap);
+	spinner.add(headphones);
+	app.scene.add(spinner);
+
+	// Shadow
 
 	var shadow_mesh = new THREE.PlaneGeometry(1, 1);
 	materials.shadow.transparent = true;
@@ -142,12 +163,9 @@ function init()
 	shadow.rotation.x = radians(-90);
 	spinner.add(shadow);
 
-	app.scene.add(spinner);
-
-	// RAYCASTING
+	// Raycaster [Guide link to raycasting]
 
 	app.raycaster = new THREE.Raycaster();
-
 
 	// UI
 
@@ -164,24 +182,30 @@ function init()
 		burger_lines: document.querySelectorAll('.burger div'),
 	};
 
+	// Listen for mouse clicks on the colour buttons
+
 	for(var i = 0; i < app.ui.colours.length; ++i)
 	{
 		app.ui.colours[i].addEventListener('click', on_colour_click);
 	}
 
-	app.highlight_colour = new THREE.Vector3(0.2,0.6,0.9);
+	// Create a renderer
 
-	// START RENDERER
-
-	var renderer = new THREE.WebGLRenderer({antialias: true, alpha:true});
+	var renderer = new THREE.WebGLRenderer(
+	{
+		antialias: true, //[Guide link to AA]
+		alpha:true //Lets dom elements behind show through
+	});
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	document.querySelector('.webgl').appendChild(renderer.domElement);
 	app.renderer = renderer;
 
-	app.init = true;
+	// Animations
 
 	build_animations();
 	app.animations.intro.restart();
+
+	// Begin update loop
 
 	requestAnimationFrame(update);
 }
@@ -190,56 +214,25 @@ function update(t)
 {
 	requestAnimationFrame(update);
 	
-	var dt = (t - app.last_tick) / 1000;
-	app.last_tick = t;
+	var dt = app.time.getDelta();
+	debug_camera_movement(app.camera, dt);
+	update_spinner(dt);
+	app.renderer.render(app.scene, app.camera);
 
-	if(app.assets_loaded === false) return;
+	update_input();
+}
 
-	if(key_down(Keys.F)) app.debug_mode = !app.debug_mode;
-	if(app.debug_mode) debug_camera_movement(camera, dt);
-
-	var ui = app.ui;
-	var camera = app.camera;
+function update_spinner(dt)
+{
 	var spinner = app.spinner;
-	var product = app.product;
-	var components = product.children;
 
 	spinner.scale.setScalar(app.spin_scale);
-
-
-	for(var i = 0; i < product.children.length; ++i)
-	{
-		var child = product.children[i];
-		if(child.material.uniforms.highlight)
-			child.material.uniforms.highlight.value = 0.0;
-	}
-	
-	ui.marker.classList.remove('visible');
-
-	var normalized_mouse = new THREE.Vector3();
-	screen_to_normalized_device(normalized_mouse, input.mouse.position);
-	app.raycaster.setFromCamera(normalized_mouse, camera);
-	var intersects = app.raycaster.intersectObjects(components, true);
-	if(intersects.length > 0)
-	{
-		var hit = intersects[0];
-
-		if(hit.object.material.uniforms.highlight)
-		{
-			var point = new THREE.Vector3();
-			world_to_screen(point, hit.point, app.camera);
-			ui.marker.classList.add('visible');
-			ui.marker.style.transform = 'translate(' + point.x + 'px, ' + point.y + 'px)';
-			ui.marker_text.innerText = hit.object.name;
-			hit.object.material.uniforms.highlight.value = 1.0;
-		}
-	}
-
 
 	if(key_down(Keys.MOUSE_LEFT) &! spinner.spinning)
 	{
 		spinner.spinning = true;	
 	}
+	
 	if(key_up(Keys.MOUSE_LEFT))
 	{
 		if(spinner.spinning)
@@ -254,12 +247,63 @@ function update(t)
 		spinner.velocity = input.mouse.delta.x * dt;
 	}
 
+	// Stop the spinner spinning too fast
+	spinner.velocity = clamp(spinner.velocity, -0.5,0.5);
 	spinner.rotation.y += spinner.velocity;
-	spinner.velocity *= 0.91;
 
-	app.renderer.render(app.scene, app.camera);
-	update_input();
+	// Slow the spinner down over time
+	spinner.velocity *= 0.91;
 }
+
+function update_raycaster(dt)
+{
+	var marker = app.ui.marker;
+	var camera = app.camera;
+	var headphones = app.headphones;
+	var components = headphones.children;
+
+	// Reset the highlight effect on all the headphone parts
+
+	for(var i = 0; i < components.length; ++i)
+	{
+		var child = components[i];
+		if(child.material.uniforms.highlight)
+			child.material.uniforms.highlight.value = 0.0;
+	}
+	
+	// Reset the marker
+
+	marker.classList.remove('visible');
+
+	// Convert the mouse screen position to camera
+	// viewport coordinates [guide to viewport coordinates]
+	var viewport = screen_to_viewport(input.mouse.position);
+	app.raycaster.setFromCamera(viewport, camera);
+
+	// Fire a ray into the scene and see if it hits any of the
+	// headphone parts
+	var intersects = app.raycaster.intersectObjects(components, true);
+	if(intersects.length > 0)
+	{
+		// If more than one item is hit the result is sorted by distance
+		// [0] will be the closest object hit
+
+		var hit = intersects[0];
+		
+		// If the ray hits an object we update its material to 
+		// be highlighted and set the UI marker to its position
+
+		if(hit.object.material.uniforms.highlight)
+		{
+			var point = world_to_screen(hit.point, app.camera);
+			marker.classList.add('visible');
+			marker.style.transform = 'translate(' + point.x + 'px, ' + point.y + 'px)';
+			marker_text.innerText = hit.object.name;
+			hit.object.material.uniforms.highlight.value = 1.0;
+		}
+	}
+}
+
 
 function on_colour_click(e)
 {
@@ -277,8 +321,8 @@ function on_colour_click(e)
 	app.animations.colour_switch.restart();
 
 	var ui = app.ui;
-	var casing = app.product.children[0];
-	var speakers = app.product.children[1]; 
+	var casing = app.headphones.children[0];
+	var speakers = app.headphones.children[1]; 
 
 	//TODO put colours in a data structure and use enums
 

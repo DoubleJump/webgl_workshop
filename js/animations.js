@@ -6,7 +6,7 @@ function build_animations()
 		from('.angle', 1.6, {x:1200}, 1.0).
 		fromTo(app, 1.0, {spin_scale:0.0001}, {spin_scale:1.0}, 1.4).
 		fromTo(app.spinner.rotation, 1.8, {y:0}, {y:radians(720)}, 1.4).
-		from('.background h2', 0.5, {y:20, opacity:0}, 2.0).
+		from('.background h2', 0.5, {opacity:0}, 2.0).
 		from('.burger', 0.5, {x:-50, opacity:0}, 2.3).
 		from('.colour-picker', 0.5, {x:-50, opacity:0}, 2.3).
 		from('nav', 0.5, {x:50, opacity:0}, 2.3).
@@ -15,7 +15,6 @@ function build_animations()
 		{
 			app.preloader.style.display = 'none';
 		}}, 0.0);
-
 
 
 	var spin = '+=' + radians(540);

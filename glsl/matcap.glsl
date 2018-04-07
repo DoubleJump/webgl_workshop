@@ -1,3 +1,5 @@
+//VERTEXSHADER
+
 // attribute vec3 position; -- supplied by THREE
 attribute vec2 uv2;
 
@@ -26,14 +28,13 @@ void main()
 }
 
 
-========
+//FRAGMENTSHADER
 
 varying vec2 _uv;
 varying vec3 _normal;
 varying vec3 _eye;
 
 uniform float hue;
-//uniform vec3 highlight_rgb;
 uniform float highlight;
 uniform sampler2D matcap;
 uniform sampler2D ao;

@@ -8,6 +8,7 @@ var KeyState =
 
 var Keys = 
 {
+	TOUCH: -1,
 	MOUSE_LEFT: 0,
 	MOUSE_RIGHT: 1,
 	BACKSPACE: 8,
@@ -70,21 +71,23 @@ function Mouse()
 	return m;
 }
 
-
 var input;
-function Input(root)
+function Input()
 {
 	var r = {};
 	r.mouse = Mouse();
 	r.keys = new Uint8Array(256);
-
-	if(!root) root = window;
 
 	window.addEventListener('keydown', on_key_down);
 	window.addEventListener('keyup', on_key_up);
 	window.addEventListener('mouseup', on_key_up);
 	window.addEventListener('mousedown', on_key_down);
 	window.addEventListener('mousemove', on_mouse_move);
+  	
+	var wrapper = document.querySelector('.wrapper');
+  	wrapper.addEventListener("touchstart", on_touch_start);
+  	wrapper.addEventListener("touchmove", on_touch_move);
+  	wrapper.addEventListener("touchend", on_touch_end);
 
 	input = r;
 	return r;
@@ -136,4 +139,30 @@ function on_mouse_move(e)
 {
 	input.mouse.position.x = e.clientX;
 	input.mouse.position.y = e.clientY;
+}
+
+
+function on_touch_start(e)
+{
+	var t = e.changedTouches[0];
+	input.mouse.position.x = t.clientX;
+	input.mouse.position.y = t.clientY;
+	input.mouse.last_position.x = t.clientX;
+	input.mouse.last_position.y = t.clientY;
+	input.keys[Keys.MOUSE_LEFT] = KeyState.DOWN;
+}
+
+function on_touch_move(e)
+{
+	var t = e.changedTouches[0];
+	input.mouse.position.x = t.clientX;
+	input.mouse.position.y = t.clientY;
+}
+
+function on_touch_end(e)
+{
+	var t = e.changedTouches[0];
+	input.mouse.position.x = 0;
+	input.mouse.position.y = 0;
+	input.keys[Keys.MOUSE_LEFT] = KeyState.UP;
 }
