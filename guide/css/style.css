@@ -1,0 +1,151 @@
+@font-face 
+{
+    font-family: 'Karla-Light';
+    src: url('../fonts/Karla/Karla-Light.ttf');
+}
+
+@font-face 
+{
+    font-family: 'Karla-Regular';
+    src: url('../fonts/Karla/Karla-Regular.ttf');
+}
+
+@font-face 
+{
+    font-family: 'Karla-Bold';
+    src: url('../fonts/Karla/Karla-Bold.ttf');
+}
+
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body
+{
+    -webkit-font-smoothing: antialiased;
+    background: #f6f6f6;
+    font-family: 'Karla-Regular';
+    font-size: 17px;
+    line-height: 26px;
+    color: #222;
+}
+
+header
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 240px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 0;
+    background: white;
+}
+
+nav li
+{
+    margin-left: 0;
+    font-size: 0.9em;
+}
+
+article
+{
+    margin-left: 240px;
+}
+
+section.grey
+{
+    background: #efeff1;
+}
+
+.content
+{
+    position: relative;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 2em;
+}
+
+img
+{
+    max-width: 700px;
+    padding-bottom: 2.0em;
+}
+
+h1
+{
+    font-size: 2.2em;
+    padding-bottom: 1.2em;
+    padding-top: 1.2em;
+}
+
+h2
+{
+    padding-bottom: 0.8em;
+}
+
+h3
+{
+    padding-bottom: 0.8em;
+}
+
+p
+{
+    line-height: 1.46em;
+    padding-bottom: 2.0em;
+}
+
+ul
+{
+    padding-bottom: 2.0em;
+}
+
+li
+{
+    display: block;
+    margin-left: 1.0em;
+    line-height: 2.2em;
+}
+
+a
+{
+    color: #4d57e4;
+}
+
+
+.paginator
+{
+    position: absolute;
+    padding-bottom: 2em;
+}
+
+.paginator.left
+{
+    left: 0;
+}
+
+.paginator.right
+{
+    right: 0;
+    text-align: right;
+}
+
+.paginator p
+{
+    padding-bottom: 0;
+}
+.paginator a
+{
+    font-weight: bold;
+    text-decoration: none;
+    color: initial;
+}
