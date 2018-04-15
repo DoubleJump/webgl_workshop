@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/syntax.css">
+  <link href="https://fonts.googleapis.com/css?family=Cabin:700|Inconsolata:400,700|Open+Sans:400,700" rel="stylesheet">
+  <title>THREEjs For Fun and Profit</title>
+</head>
+
+<body>
+
+<header>
+	<nav>
+		<h3>Sections</h3>
+		<a href='index.html'>Prerequisites</a>
+		<a href='part-2.html'>3D Scene Structure</a>
+		<a href='part-3.html'>Render Pipeline</a>
+		<a href='part-4.html'>Loading Assets</a>
+	</nav>
+</header>
+<span class='menu'></span>
+
+<article>
+
+	<h1>Render Pipeline</h1>
+	<img class='hero' src='img/scene.jpg'>
+	<section><div class='content'>
+
+	<p>The stages for turning the 3D vertices of our mesh into 2D screen pixels is called the 'render pipeline'.</p>
+
+	</div></section>
+
+	<section><div class='content'>
+
+	<h3>Shaders</h3>
+
+	<p>We control part of the pipeline by using shaders. Shaders are small programs made up of two parts, a <strong>vertex</strong> shader and a <strong>fragment</strong> shader. Shaders are written in a language called <strong>GLSL</strong>.</p>
+
+	</div></section>
+
+	<section><div class='content'>
+
+	<h3>Vertex Shader</h3>	
+
+	<p>A vertex shader is responsible for taking the vertices of a mesh and moving them to their final position. The vertex shader is run once for every vertex that exists on the mesh.</p>
+
+<pre><code class="glsl">//attribute vec3 position; -- supplied by THREE
+
+//uniform mat4 modelMatrix; -- supplied by THREE
+//uniform mat4 viewMatrix; -- supplied by THREE
+//uniform mat4 projectionMatrix; -- supplied by THREE
+
+void main()
+{ 
+	// position is turned into a vec4 first
+	// the extra '1.0' on the end is needed
+	// for the matrix math to work
+	vec4 p = vec4(position, 1.0);
+	
+	// apply the objects movement transform
+	p = modelMatrix * p;
+
+	// apply the camera transform
+	p = viewMatrix * p;
+
+	// apply the camera perspective distortion
+	p = projectionMatrix * p;
+
+	gl_Position = p;
+}
+</code></pre>
+<div class='caption'>Vertex Shader</div>
+
+	<p>Behind the scenes transforms are stored as an array of 16 floats call a <strong>matrix</strong>. THREEjs automatically supplies some of the common matrices to the shader for us. External variables supplied to a shader are called <strong>uniforms</strong>.</p>
+
+	</div></section>
+
+	<section><div class='content'>
+
+	<h3>Fragment Shader</h3>	
+
+	<p>Any screen pixel that is covered by a triangle from the previous stage will trigger the execution of the fragment shader. It's here we can modify the colour and transparency of the result.</p>
+
+	<pre><code class="glsl">
+void main() 
+{
+	// output is RGBA
+	gl_FragColor = vec4(1.0,1.0,1.0,1.0);
+}
+</code></pre>
+<div class='caption'>Fragment Shader</div>
+
+	</div></section>
+
+	<section><div class='content'>
+
+	<h3>Creating Materials</h3>	
+
+	<p>THREEjs comes with a bunch of existing materials like the <code>MeshBasicMaterial</code> we've already used. We can also create our own materials from our own shader code using <code>ShaderMaterial</code> like so.</p>
+
+	<pre><code class="js">
+var vertex_shader = "void main() {vec4 p = vec4(position, 1.0); p = projectionMatrix * modelViewMatrix * p; gl_Position = p; };"
+var fragment_shader = "void main() {gl_FragColor = vec4(1.0); }";
+
+var material = new THREE.ShaderMaterial(
+{
+	vertexShader: vertex_shader,
+	fragmentShader: fragment_shader
+});
+</code></pre>
+<div class='caption'>Creating a custom material</div>
+
+	<p>In the next part we'll go over how to load assets like shaders over the network in a much more managable way.</p>
+
+	</div></section>
+
+</article>
+
+
+<script src="js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="js/guide.js"></script>
+
+</body>
+</html>

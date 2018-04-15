@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/syntax.css">
+  <link href="https://fonts.googleapis.com/css?family=Cabin:700|Inconsolata:400,700|Open+Sans:400,700" rel="stylesheet">
+  <title>THREEjs For Fun and Profit</title>
+</head>
+
+<body>
+
+<header>
+	<nav>
+		<h3>Sections</h3>
+		<a href='index.html'>Prerequisites</a>
+		<a href='part-2.html'>3D Scene Structure</a>
+		<a href='part-3.html'>Render Pipeline</a>
+		<a href='part-4.html'>Loading Assets</a>
+	</nav>
+</header>
+<span class='menu'></span>
+
+<article>
+
+	<h1>Anatomy of a Scene</h1>
+	<img class='hero' src='img/scene.jpg'>
+	<section><div class='content'>
+
+	<p>3D objects inside a virtual scene are mainly made up of two things, a mesh and a transform.</p>
+
+	</div></section>
+
+	<section><div class='content'>
+
+	<h3>Mesh</h3>
+
+	<p>A mesh is collection of 3D points (x,y and z values) that are grouped by threes to form visible triangles.</p>
+
+	<div class='placeholder'>MESH DIAGRAM</div>
+
+	</div></section>
+
+	<section><div class='content'>
+
+	<h3>Transform</h3>	
+
+	<p>A transform is the position, scale and rotation of an object. By modifiying the values of the transform you can move the mesh around in 3D space.</p>
+
+	<div class='placeholder'>TRANSFORM DIAGRAM</div>
+
+	</div></section>
+
+	<section><div class='content'>
+
+	<h3>Camera</h3>	
+
+	<p>A camera is special type of transform that instead of moving a mesh  moves the entire scene. The camera can also distort the scene to give the illusion of perspective.</p>
+
+	<div class='placeholder'>CAMERA DIAGRAM</div>
+
+	</div></section>
+
+	<section><div class='content'>
+
+	<h3>Initial THREEjs Scene</h3>	
+
+	<p>This is the initial boilerplate code for setting up a THREEjs scene, camera and spinning cube mesh.</p>
+
+	<pre><code class="js">var app = {};
+
+window.addEventListener('load', start);
+
+function start() 
+{
+	// Scene
+	app.scene = new THREE.Scene();
+
+	// Camera
+	var field_of_view = 60;
+	var aspect_ratio = window.innerWidth / window.innerHeight;
+	var near_clip = 0.01;
+	var far_clip = 100;
+
+	app.camera = new THREE.PerspectiveCamera(
+		field_of_view, 
+		aspect_ratio, 
+		near_clip, 
+		far_clip);
+
+	// Create a cube
+	var geometry = new THREE.BoxGeometry(1,1,1);
+	var material = new THREE.MeshBasicMaterial({color: "#FFFFFF"});
+	app.cube = new THREE.Mesh(geometry, material);
+	app.scene.add(cube);
+
+	// Create a renderer
+	var renderer = new THREE.WebGLRenderer();
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	document.querySelector('.webgl').appendChild(renderer.domElement);
+	app.renderer = renderer;
+
+	// Start update loop
+	requestAnimationFrame(update);
+}
+
+function update(t)
+{
+	// Continue update loop
+	requestAnimationFrame(update);
+
+	// Spin the cube
+	app.cube.rotation.x += 0.01;
+	app.cube.rotation.y += 0.01;
+
+	// Tell THREEjs to render the scene using our camera
+	app.renderer.render(app.scene, app.camera);
+}
+</code></pre>
+
+	</div></section>
+
+
+
+
+</article>
+
+<script src="js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="js/guide.js"></script>
+
+</body>
+</html>

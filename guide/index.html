@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/syntax.css">
+  <link href="https://fonts.googleapis.com/css?family=Cabin:700|Inconsolata:400,700|Open+Sans:400,700" rel="stylesheet">
+  <title>THREEjs For Fun and Profit</title>
+</head>
+
+<body>
+
+<header>
+	<nav>
+		<h3>Sections</h3>
+		<a href='index.html'>Prerequisites</a>
+		<a href='part-2.html'>3D Scene Structure</a>
+		<a href='part-3.html'>Render Pipeline</a>
+		<a href='part-4.html'>Loading Assets</a>
+	</nav>
+</header>
+<span class='menu'></span>
+
+<article>
+
+	<h1>Practical 3D for Websites</h1>
+	<iframe class='hero' src='../../demo/index.html'></iframe>
+	<section><div class='content'>
+
+	<p>During this workshop we'll be building a 3D product turntable with the aim of covering the basics of rendering and interaction with THREEjs. All the code for this workshop can be found <a href='#'>here</a>.</p>
+
+
+	</div></section>
+
+	<section><div class='content'>
+
+	<h3>File Structure</h3>
+
+	<p>A premade folder structure and starter files can be downloaded <a href="#">here</a>. Feel free to rearrange things how you see fit.</p>
+
+	</div></section>
+
+	<section class='grey'><div class='content'>
+
+	<h3>Software</h3>	
+
+	<p>To get things started we'll need to make sure we have some software installed. These are just suggestions. If you use alternatives that you are more comfortable with then you should use those.</p>
+
+	<ul>
+		<li><a href="https://www.sublimetext.com/3">Sublime Text</a></li>
+		<li><a href="https://www.blender.org/download/">Blender3D</a></li>
+		<li><a href="https://krita.org/en/download/krita-desktop/">Krita</a></li>
+		<li><a href="https://www.python.org/downloads/">Python 2.7</a></li>
+	</ul>
+
+	</div></section>
+
+	<section><div class='content'>
+	
+	<h3>Local Web Server</h3>
+
+	<p>THREEjs' asset loading functions require a <a href='https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server'>local web server</a>. Set one running by going to the command line, navigate to the workshop folder and type <code class='js'>python -m SimpleHTTPServer 8000</code> Open your browser and enter <code>http://localhost:8000</code> into the address bar.</p>
+
+	<img src='img/local-server.png'>
+
+<!-- 	<pre><code class="js">function wtf()
+{
+	console.log('wtf');
+}
+</code></pre> -->
+
+	</div></section>
+
+	<!-- <footer>
+	<div class='content'>
+		<div class='paginator left'>Intro</div>
+		<div class='paginator right'>3D Scene Structure</div>
+	</div>
+	</footer> -->
+
+</article>
+
+
+<script src="js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="js/guide.js"></script>
+
+</body>
+</html>
