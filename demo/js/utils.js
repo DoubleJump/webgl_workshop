@@ -1,11 +1,3 @@
-THREE.Material.prototype.setAll = function(uniforms)
-{
-	for(var k in uniforms)
-	{
-		this.uniforms[k].value = uniforms[k];
-	}
-}
-
 function clamp(a, min, max)
 {
 	if(a < min) return min;
@@ -42,7 +34,7 @@ function world_to_screen(world, camera)
 	return result;
 }
 
-function load_shader(name, url, uniforms, options)
+function load_shader(name, url, uniforms)
 {
 	app.assets.total++;
 	app.assets.load_count++;
@@ -52,24 +44,24 @@ function load_shader(name, url, uniforms, options)
     rq.open('GET', url, true);
     rq.onload = function(e)
     {
-        if(e.target.status === 200)
-        {
-        	var result = e.target.response;
-        	var split = result.split('//FRAGMENTSHADER');
-        	var vertex_shader = split[0];
-        	var fragment_shader = split[1];
+        if(e.target.status !== 200) return;
+        
+    	var result = e.target.response;
+    	var split = result.split('//FRAGMENTSHADER');
+    	var vertex_shader = split[0];
+    	var fragment_shader = split[1];
 
-        	var material = new THREE.ShaderMaterial(
-			{
-				uniforms: uniforms,
-				vertexShader: vertex_shader,
-				fragmentShader: fragment_shader
-			});
+    	var material = new THREE.ShaderMaterial(
+		{
+			uniforms: uniforms,
+			vertexShader: vertex_shader,
+			fragmentShader: fragment_shader
+		});
 
-			app.assets.materials[name] = material;
-			app.assets.load_count--;
-			check_assets_loaded();
-        }
+		app.assets.materials[name] = material;
+		app.assets.load_count--;
+		check_assets_loaded();
+        
     }
     rq.send();
 }

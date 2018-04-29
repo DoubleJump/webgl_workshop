@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/syntax.css">
+  <link href="https://fonts.googleapis.com/css?family=Cabin:700|Inconsolata:400,700|Open+Sans:400,700" rel="stylesheet">
+  
+  <title></title>
+</head>
+
+<body>
+
+<header>
+	<nav>
+		<h3>Sections</h3>
+	</nav>
+</header>
+
+<article>
+
+	<h1>Animations</h1>
+	<img class='hero' src='img/scene.jpg'>
+	<section><div class='content'>
+
+	<p>It's time to add some final bits of animation polish. We'll be using the excellent <strong>GSAP</strong> library for this. At its core GSAP just animates numbers whether that's a dom element or THREEjs position.</p>
+
+	<h3>Timelines</h3>
+
+	<p>A useful way to organise animations is to group them together into a GSAP timeline. GSAP has a chainable API so you can create a list functions and build up fairly complicated animations quite easily. The animation functions all follow the same pattern - <code>(object/selector, duration, properties, start time)</code></p>
+
+	<pre><code class="js">function build_animations()
+{
+	app.animations = {};
+
+	app.animations.intro = new TimelineMax({paused:true}).
+		from('.angle', 1.6, {x:1200}, 1.0).
+		fromTo(app.spinner.scale, 1.0, {x:0.0001, y:0.0001, z:0.0001}, {x:1, y:1, z:1}, 1.4).
+		fromTo(app.spinner.rotation, 1.8, {y:0}, {y:radians(720)}, 1.4).
+		from('.background h2', 0.5, {opacity:0}, 2.0).
+		from('.burger', 0.5, {x:-50, opacity:0}, 2.3).
+		from('.colour-picker', 0.5, {x:-50, opacity:0}, 2.3).
+		from('nav', 0.5, {x:50, opacity:0}, 2.3).
+		from('.price', 0.5, {x:50, opacity:0}, 2.3).
+		to(app.preloader, 1.5, {opacity:0, onComplete:function()
+		{
+			app.preloader.style.display = 'none';
+		}}, 0.0);
+}</pre></code>
+	<div class='caption'>Building up an intro animation using GSAP timelines</div>
+
+	<p>A couple of things to note, when animating a THREEjs scale value don't forget to scale all three axes (x,y,z). You can also set the animation to be paused intially so it doesn't start running straight away. Instead you set it going by calling the timelines's <code>restart()</code> function.</p> 
+
+	</div></section>
+
+</article>
+
+<script src="js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="js/guide.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/syntax.css">
+  <link href="https://fonts.googleapis.com/css?family=Cabin:700|Inconsolata:400,700|Open+Sans:400,700" rel="stylesheet">
+  <title></title>
+</head>
+
+<body>
+
+<header>
+	<nav>
+		<h3>Sections</h3>
+	</nav>
+</header>
+
+<article>
+
+	<h1>Fresnel</h1>
+	<img class='hero' src='img/scene.jpg'>
+	<section><div class='content'>
+
+	<p>To create our highlight effect we are going to use something called <strong>Fresnel</strong>. Simply put Fresnel is the angle between the surface normal and the camera direction. If a face is pointing directly towards the camera the Fresnel value will be <code>1.0</code>. A face that is at right-angles to the camera will have a Fresnel of <code>0.0</code>. We can add an overlay colour to the output of fragment shader and scale its brightness by the Fresnel value give and 'edge-glow' sort of effect. Fresnel is also used in many other lighting techniques.</p>
+
+	<pre><code class="glsl">float fresnel(vec3 E, vec3 N)
+{
+	return pow(1.0 + dot(E, N), 2.0);
+}</pre></code>
+	<div class='caption'>The Fresnel function in GLSL</div>
+
+	<p><code>N</code> is our normal. <code>E</code> stands for 'eye' which is often used as the term for the direction of a face to the center of the camera. The built in <code>dot(E, N)</code> function will return the angle of between those two directions.</p> 
+
+	<h3>Getting the Eye Direction</h3>
+
+	<div class='placeholder'>EYE DIRECTION</div>
+	<div class='caption'>The 'eye' direction</div>
+
+	<p>You get eye vector by applying the model and view transform (but not the projection) and then normalizing the result. Normalizing a vector keeps its direction but ensures its length is always equal to 1.</p>
+
+	<pre><code class="glsl">//VERTEXSHADER
+
+varying vec3 _eye;
+
+void main() 
+{
+	// ...
+	_eye = vec3(modelViewMatrix * vec4(position, 1.0));
+	_eye = normalize(_eye);
+	// ...
+}</code></pre>
+<div class='caption'>Getting the 'eye' direction in the vertex shader</div>
+
+	<p>Now that's set up all we have to do is apply our highlight colour. You can see we create a <code>vec3</code> for our highlight colour, mutliply by the highlight variable (which is either 1 or 0) and finally again by the fresnel amount.</p>
+
+	<pre><code class="glsl">//FRAGMENTSHADER
+
+// ...
+
+varying vec3 _normal;
+varying vec3 _eye;
+
+uniform float highlight;
+
+void main() 
+{
+	// ...
+
+	// Add highlight glow
+	float fr = fresnel(_eye, _normal);
+	vec3 highlight_colour = vec3(0.2,0.6,0.9) * highlight * (fr + 0.3);
+	rgb += highlight_colour;
+
+	gl_FragColor = vec4(rgb, 1.0);
+}</code></pre>
+<div class='caption'>&nbsp;</div>
+
+
+	</div></section>
+
+</article>
+
+<script src="js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="js/guide.js"></script>
+
+</body>
+</html>

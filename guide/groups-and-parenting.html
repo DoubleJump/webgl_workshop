@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/syntax.css">
+  <link href="https://fonts.googleapis.com/css?family=Cabin:700|Inconsolata:400,700|Open+Sans:400,700" rel="stylesheet">
+  <title></title>
+</head>
+
+<body>
+
+<header>
+	<nav>
+		<h3>Sections</h3>
+	</nav>
+</header>
+
+<article>
+
+	<h1>Groups &amp; Parenting</h1>
+	<img class='hero' src='img/scene.jpg'>
+	<section><div class='content'>
+
+	<p>Although we want our headphones to be rendered as separate parts we still want to rotate it as a single object. To do that we'll use <strong>Groups</strong>.</p>
+
+	<h3>Parenting</h3>
+
+	<p>Under the hood a group is just another transform. When you mutliply one transform matrix with another you pass along its properties. The first transform is called the <strong>parent</strong> and second is called the <strong>child</strong>. One parent can have mutiple children.</p>
+
+	<h3>Group Heirarchy</h3>
+
+	<div class='placeholder'>GROUP HIERARCHY</div>
+	<div class='caption'>Our grouping sructure</div>
+
+	<p>We're actually going to use two groups. One will tilt the headphones backwards at a more interesting angle. The second will control the drag based spinning.</p>
+
+	<pre><code class="js">function start()
+{
+	// ...
+	var meshes = app.assets.meshes;
+
+	var spinner = new THREE.Group();
+	app.spinner = spinner;
+
+	var headphones = new THREE.Group();
+	// tilt the headphones backwards
+	headphones.rotation.x = radians(15);
+	app.headphones = headphones;
+
+	var casing = new THREE.Mesh(meshes.casing, materials.matcap);
+	var speakers = new THREE.Mesh(meshes.speakers, materials.matcap);
+	var pads = new THREE.Mesh(meshes.pads, materials.matcap);
+	var cap = new THREE.Mesh(meshes.cap, materials.matcap);
+
+	headphones.add(casing);
+	headphones.add(speakers);
+	headphones.add(pads);
+	headphones.add(cap);
+	spinner.add(headphones);
+	app.scene.add(spinner);
+	// ...
+}</code></pre>
+<div class='caption'>Coding our group structure</div>
+
+	<h3>Radians?</h3>
+
+	<p>People are used to thinking about rotations in degrees but for some reason THREEjs has decided to store them as radians. This is kind of lame and we have to convert the value first -___-</p>
+
+	<pre><code class="js">function radians(degrees)
+{
+	return degrees * THREE.Math.DEG2RAD;
+}</code></pre>
+
+	</div></section>
+
+</article>
+
+<script src="js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="js/guide.js"></script>
+
+</body>
+</html>

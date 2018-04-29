@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/syntax.css">
+  <link href="https://fonts.googleapis.com/css?family=Cabin:700|Inconsolata:400,700|Open+Sans:400,700" rel="stylesheet">
+  <title></title>
+</head>
+
+<body>
+
+<header>
+	<nav>
+		<h3>Sections</h3>
+	</nav>
+</header>
+
+<article>
+
+	<h1>Loading Assets</h1>
+	<img class='hero' src='img/scene.jpg'>
+	<section><div class='content'>
+
+	<p>THREEjs has a bunch of different helper functions for loading different types of assets. We still need to do bit of work however as network requests are <strong>asynchronous</strong>. We need to makes sure all our assets have loaded before we render anything otherwise WebGL will get mad at us an complain :( </p>
+
+	</div></section>
+
+	<section><div class='content'>
+
+	<h3>Preloader</h3>
+
+	<p>Our preloader works by incrementing a counter whenever we load an asset. Once loaded the counter is decremented and <code>check_is_loaded()</code> called. This function checks the counter and if it's zero runs <code>start()</code>.</p>
+
+	<p>Here's how our shader loading code looks now. Shaders come in two parts, but it's often convinient to write them together in the same file. By including a comment at the start of each shader we can search and split the text to get our two peices. Finally, once the asset is loaded, we store it in a object called <code>assets</code> for easy access later on.</p>
+
+	<pre><code class="js">function load_shader(name, url, uniforms)
+{
+	app.assets.total++;
+	app.assets.load_count++;
+
+	var rq = new XMLHttpRequest();
+	rq.responseType = 'text'; 
+	rq.open('GET', url, true); 
+	rq.onload = function(e) 
+	{
+		if(e.target.status !== 200) return;
+		
+		var result = e.target.response;
+		var split = result.split('//FRAGMENTSHADER');
+		var vertex_shader = split[0];
+		var fragment_shader = split[1];
+		var material = new THREE.ShaderMaterial(
+		{
+			uniforms: uniforms, 
+			vertexShader: vertex_shader,
+			fragmentShader: fragment_shader
+		});
+		app.assets.materials[name] = material;
+		app.assets.load_count--; 
+		check_assets_loaded();
+	} 
+	rq.send(); 
+}
+
+function check_assets_loaded()
+{
+	if(app.assets.load_count === 0 &! 
+		app.started)
+	{
+		app.started = true;
+		start();
+	}
+}</code></pre>
+<div class='caption'>Updated shader loading code</div>
+
+	<p>Here's our custom shader in its full easy to edit glory. Save it somewhere in your project folder.</p>
+
+<pre><code class="glsl">//VERTEX SHADER
+void main()
+{ 
+	vec4 p = vec4(position, 1.0);
+	p = modelMatrix * p;
+	p = viewMatrix * p;
+	p = projectionMatrix * p;
+	gl_Position = p;
+}
+
+//FRAGMENT SHADER
+void main() 
+{
+	gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+}</code></pre>
+<div class='caption'>Our first custom shader in full</div>
+
+	<p>Next we need to adjust our loading code to use the preloader instead of jumping straight in.</p>
+
+<pre><code class="js">function preload()
+{
+	load_shader('basic', 'glsl/basic.glsl');
+}
+
+window.addEventListener('load', preload);</code></pre>
+
+	</div></section>
+
+</article>
+
+
+<script src="js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="js/guide.js"></script>
+
+</body>
+</html>

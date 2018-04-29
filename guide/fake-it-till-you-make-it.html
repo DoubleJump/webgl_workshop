@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/syntax.css">
+  <link href="https://fonts.googleapis.com/css?family=Cabin:700|Inconsolata:400,700|Open+Sans:400,700" rel="stylesheet">
+  <title></title>
+</head>
+
+<body>
+
+<header>
+	<nav>
+		<h3>Sections</h3>
+	</nav>
+</header>
+
+<article>
+
+	<h1>Fake it 'til you make it</h1>
+	<img class='hero' src='img/scene.jpg'>
+	<section><div class='content'>
+
+	<p>Lighting and rendering is a huuuuge topic in 3D but there's one key thing to remember - it's all fake. There have been recent advances in making renderers more physically accurate aka <strong>Physically Based Rendering</strong> but you can often achieve great results with much simpler methods. Websites typically don't have budgets that AAA games have so its important to have some of these tricks up your sleeve.</p>
+
+	<h3>Matcaps</h3>
+
+	<p>One such method is 'Material Capture Textures' or <strong>matcaps</strong> for short. They are called such as they capture what a material looks like from a variety of angles and flatten them onto a single image.</p>
+
+	<p>Remember the surface normal we visualised in the previous section? Well instead of directly assigning the output to the normal we can instead use the normal to look up a pixel on our matcap image. Here's how that works.</p>
+
+	<pre><code class="glsl">//VERTEXSHADER
+
+varying vec3 _normal;
+
+void main()
+{ 
+	_normal = normalMatrix * normal;
+	gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}
+
+//FRAGMENTSHADER
+
+varying vec3 _normal;
+
+// a 'sampler2D' is an image texture :\
+uniform sampler2D matcap;
+
+void main() 
+{
+	// This turns our 3D surface direction into a 2D 
+	// texture coordinate
+	vec4 N = vec4(normalize(_normal), 0);
+	vec2 muv = vec2(viewMatrix * N) * 0.5 + vec2(0.5,0.5);
+
+	// The texture2D function fetches the value of pixel 
+	// from an image for a given coordinate
+	vec3 rgb = texture2D(matcap, muv).rgb;
+
+	gl_FragColor = vec4(rgb, 1.0);
+}</code></pre>
+	<div class='caption'>Matcap Shader</div>
+
+	<h3>Loading Textures</h3>
+
+	<p>As our matcap in an image texture we'll need to load it in first before we can use it. We can do that using the built-in <code>TextureLoader</code> class wrapped with a bit of our preloader code as we used with shaders.</p>
+
+	<pre><code class='js'>function load_texture(name, url)
+{
+	app.assets.total++;
+	app.assets.load_count++;
+
+	var loader = new THREE.TextureLoader();
+	loader.load
+	(
+		url,
+		function(texture)
+		{
+			app.assets.textures[name] = texture;
+			app.assets.load_count--;
+			check_assets_loaded();
+		}
+	);
+}
+
+function preload()
+{
+	// ...
+
+	load_texture('matcap_violet', 'img/matcaps/mat_violet.jpg');
+
+	// ...
+}</code></pre>
+
+	<div class='placeholder'>MATCAP DEMO</div>
+
+	</div></section>
+
+</article>
+
+<script src="js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="js/guide.js"></script>
+
+</body>
+</html>

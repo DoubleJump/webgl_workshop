@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/syntax.css">
+  <link href="https://fonts.googleapis.com/css?family=Cabin:700|Inconsolata:400,700|Open+Sans:400,700" rel="stylesheet">
+  <title></title>
+</head>
+
+<body>
+
+<header>
+	<nav>
+		<h3>Sections</h3>
+	</nav>
+</header>
+
+<article>
+
+	<h1>UV Mapping</h1>
+	<img class='hero' src='img/uv-mapping.jpg'>
+	<section><div class='content'>
+
+	<p>UV mapping is the processes of creating a 2D map of a 3D surface kind of like peeling an orange and laying it flat on a table. UV coordinates are stored as an attribute just like normals. Our headphones model has UV maps included so we don't need to do anything extra except update our shader to use them.</p>
+
+<pre><code class="glsl">//VERTEXSHADER
+
+varying vec3 _normal;
+varying vec2 _uv;
+
+void main() 
+{
+	_normal = normalMatrix * normal;
+
+	// Uvs just get passed on to the fragment shader
+	_uv = uv;
+
+	gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}</code></pre>
+<div class='caption'>Passing the UV map attribute to the fragment shader</div>
+
+
+	<h3>Ambient Occlusion</h3>
+
+	<p>Remember how everything we're doing is fake? Well another trick is to pre-render all the expensive to calculate shadows that appear in the nooks and crannies of an object and save them to a texture.</p>
+
+	<img src='img/ambient-occlusion.jpg'>
+	<div class='caption'>'Baking' an ambient occlusion map in Blender</div>
+
+	<p>There's an ambient occlusion map that's supplied with our 3D model. So all we have to do is load it in and use it in our fragment shader.</p>
+
+	<pre><code class="js">function preload()
+{
+	// ...
+	load_texture('ambient_occlusion', 'img/ambient_occlusion.jpg');
+	// ...
+}
+
+function start()
+{
+	// ...
+	casing_material.uniforms.ao.value = textures.ambient_occlusion;
+	// ...
+}</code></pre>
+<div class='caption'>Loading and assigning the ambient occlusion texture</div>
+
+	<p>Here's the updated fragment shader. The ambient occlusion map is a black and white image with all RGB channel having equal values. By multiplying the matcap colour by the ambient occlusion colour we'll darken the result wherever there is shadow.</p>
+
+
+	<pre><code class="glsl">//FRAGMENTSHADER
+
+varying vec2 _uv;
+varying vec3 _normal;
+
+uniform sampler2D matcap;
+uniform sampler2D ao;
+
+void main() 
+{
+	vec4 N = vec4(normalize(_normal), 0);
+	vec2 muv = vec2(viewMatrix * N) * 0.5 + vec2(0.5,0.5);
+	vec3 rgb = texture2D(matcap, muv).rgb;
+
+	float ao_sample = texture2D(ao, _uv).r;
+	rgb *= ao_sample;
+
+	gl_FragColor = vec4(rgb, 1.0);
+}</code></pre>
+	<div class='caption'>Using the ambient occlusion map in the fragment shader</div>
+
+	</div></section>
+
+</article>
+
+<script src="js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="js/guide.js"></script>
+
+</body>
+</html>

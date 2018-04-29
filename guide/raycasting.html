@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/syntax.css">
+  <link href="https://fonts.googleapis.com/css?family=Cabin:700|Inconsolata:400,700|Open+Sans:400,700" rel="stylesheet">
+  <title></title>
+</head>
+
+<body>
+
+<header>
+	<nav>
+		<h3>Sections</h3>
+	</nav>
+</header>
+
+<article>
+
+	<h1>Raycasting</h1>
+	<img class='hero' src='img/scene.jpg'>
+	<section><div class='content'>
+
+	<p>What do you do if you want to have a hover effect on a 3D model like you would with a 2D button? Well one way is to use something called <strong>raycasting</strong>. This is where you project a 3D line into the world and see if it hits anything. The underlying math for this is a bit tricky but fortunately THREEjs makes it easy. We just need to figure out where to point our ray.</p>
+
+	<h3>Viewport Coordinates</h3>
+
+	<p>Our first job is to convert our mouse screen position into <strong>viewport coordinates</strong>. Viewport is another word for the part of the camera that represents the screen.</p>
+
+	<div class='placeholder'>VIEWPORT COORDINATES</div>
+	<div class='caption'>Viewport Coordinates</div>
+
+	<p>Here's a function that performs that conversion. In short you divide the mouse position by the screen size and shift it around a bit.</p>
+
+	<pre><code class="js">function screen_to_viewport(screen)
+{
+	var width = app.renderer.domElement.width;
+	var height = app.renderer.domElement.height;
+	var result = new THREE.Vector3();
+	result.x = (screen.x / width) * 2 - 1;
+	result.y = - (screen.y / height) * 2 + 1;
+	return result;
+}</code></pre>
+	<div class='captoion'>&nbsp;</div>
+
+	<p>To perform raycasts you first need to create a raycaster object, set the direction to fire it and then check for any hits.</p> 
+
+<pre><code class="js">function start()
+{
+	// ...
+	app.raycaster = new THREE.Raycaster();
+	// ...
+}
+
+function update()
+{
+	// ...
+	update_raycaster();
+	// ...
+}
+
+function update_raycaster()
+{
+	var camera = app.camera;
+	var components = app.headphones.children;
+	
+	// Convert the mouse screen position to camera
+	// viewport coordinates
+	var viewport = screen_to_viewport(input.mouse.position);
+	app.raycaster.setFromCamera(viewport, camera);
+
+	// Fire a ray into the scene and see if it hits any of the
+	// headphone parts
+	var intersects = app.raycaster.intersectObjects(components, true);
+	if(intersects.length > 0)
+	{
+		// If more than one item is hit the result is sorted by distance
+		// [0] will be the closest object hit
+		var hit = intersects[0];
+		console.log(hit.name);
+	}
+}</code></pre>
+<div class='caption'>Setting up the raycaster</div>
+
+	<p>For now we just print the name of the hit part to the console. We'll cover how to make a nice highligh effect in the next part</p>
+
+	</div></section>
+
+</article>
+
+<script src="js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="js/guide.js"></script>
+
+</body>
+</html>

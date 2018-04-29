@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/syntax.css">
+  <link href="https://fonts.googleapis.com/css?family=Cabin:700|Inconsolata:400,700|Open+Sans:400,700" rel="stylesheet">
+  <title></title>
+</head>
+
+<body>
+
+<header>
+	<nav>
+		<h3>Sections</h3>
+	</nav>
+</header>
+
+<article>
+
+	<h1>Meshes</h1>
+	<img class='hero' src='img/vertex-attributes.svg'>
+	<section><div class='content'>
+
+	<h3>Mesh Attributes</h3>
+
+	<p>The vertices of a mesh can store additional information besides just their position. We can store whatever data we wish in fact. These bits of vertex information are called <strong>attributes</strong>. One attribute that's very useful to include is the direction a triangle that the vertex belongs to is facing. This is called a <strong>surface normal</strong>.</p>
+
+	<img class='placeholder'>
+	<div class='caption'>Surface normal</div>
+
+	</div></section>
+
+	<section><div class='content'>
+
+	<h3>Visualising Surface Normals</h3>
+
+	<p>We can get a feel for how normals work by visualising them in our shader. Normals are stored as XYZ <code>vec3</code> values the same as positions.</p>
+
+	<p>To a shader a XYZ directions and RGB colours are the same thing. We can easily assign the direction as a colour. The only thing we have to do is take into account that directions can have negative values <code>vec3(-1.0,-1.0,0.0)</code> whereas colours only have positive values.</p>
+
+	<pre><code class="glsl">//VERTEXSHADER
+
+// a 'varying' is a variable that is passed from the
+// vertex shader to the fragment shader
+varying vec3 _normal;
+
+void main()
+{ 
+	// normals have to be multiplied by their own special matrix
+	_normal = normalMatrix * normal;
+	gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}
+
+//FRAGMENTSHADER
+
+varying vec3 _normal;
+
+void main() 
+{
+	// Use the surface direction as a colour
+	// x,y,z and r,g,b are the same thing (numbers)
+	// to a shader
+	vec3 N = (_normal / 2.0) + 0.5;
+	gl_FragColor = vec4(N, 1.0);
+}</code></pre>
+<div class='caption'>Updated shader loading code</div>
+
+	<p>All being well you should see something that looks the below example.</p>
+
+	<div class='placeholder'>IFRAME NORMAL RENDERER</div>
+
+	</div></section>
+
+</article>
+
+
+<script src="js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="js/guide.js"></script>
+
+</body>
+</html>

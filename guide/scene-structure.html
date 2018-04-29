@@ -7,7 +7,7 @@
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="css/syntax.css">
   <link href="https://fonts.googleapis.com/css?family=Cabin:700|Inconsolata:400,700|Open+Sans:400,700" rel="stylesheet">
-  <title>THREEjs For Fun and Profit</title>
+  <title></title>
 </head>
 
 <body>
@@ -15,17 +15,12 @@
 <header>
 	<nav>
 		<h3>Sections</h3>
-		<a href='index.html'>Prerequisites</a>
-		<a href='part-2.html'>3D Scene Structure</a>
-		<a href='part-3.html'>Render Pipeline</a>
-		<a href='part-4.html'>Loading Assets</a>
 	</nav>
 </header>
-<span class='menu'></span>
 
 <article>
 
-	<h1>Anatomy of a Scene</h1>
+	<h1>Scene Structure</h1>
 	<img class='hero' src='img/scene.jpg'>
 	<section><div class='content'>
 
@@ -75,6 +70,9 @@ window.addEventListener('load', start);
 
 function start() 
 {
+	// Keep track of time (we'll use this later on)
+	app.time = new THREE.Clock();
+
 	// Scene
 	app.scene = new THREE.Scene();
 
@@ -89,6 +87,9 @@ function start()
 		aspect_ratio, 
 		near_clip, 
 		far_clip);
+
+	// Pull the camera away from the center a bit
+	app.camera.position.set(0,0,1.5);
 
 	// Create a cube
 	var geometry = new THREE.BoxGeometry(1,1,1);
@@ -121,9 +122,6 @@ function update(t)
 </code></pre>
 
 	</div></section>
-
-
-
 
 </article>
 

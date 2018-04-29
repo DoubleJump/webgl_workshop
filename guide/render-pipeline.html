@@ -7,7 +7,7 @@
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="css/syntax.css">
   <link href="https://fonts.googleapis.com/css?family=Cabin:700|Inconsolata:400,700|Open+Sans:400,700" rel="stylesheet">
-  <title>THREEjs For Fun and Profit</title>
+  <title></title>
 </head>
 
 <body>
@@ -15,18 +15,13 @@
 <header>
 	<nav>
 		<h3>Sections</h3>
-		<a href='index.html'>Prerequisites</a>
-		<a href='part-2.html'>3D Scene Structure</a>
-		<a href='part-3.html'>Render Pipeline</a>
-		<a href='part-4.html'>Loading Assets</a>
 	</nav>
 </header>
-<span class='menu'></span>
 
 <article>
 
 	<h1>Render Pipeline</h1>
-	<img class='hero' src='img/scene.jpg'>
+	<img class='hero' src='img/render-pipeline.svg'>
 	<section><div class='content'>
 
 	<p>The stages for turning the 3D vertices of our mesh into 2D screen pixels is called the 'render pipeline'.</p>
@@ -74,7 +69,7 @@ void main()
 </code></pre>
 <div class='caption'>Vertex Shader</div>
 
-	<p>Behind the scenes transforms are stored as an array of 16 floats call a <strong>matrix</strong>. THREEjs automatically supplies some of the common matrices to the shader for us. External variables supplied to a shader are called <strong>uniforms</strong>.</p>
+	<p>Behind the scenes transforms are stored as an array of 16 numbers call a <strong>matrix</strong>. THREEjs automatically supplies some of the common matrices to the shader for us. External variables supplied to a shader are called <strong>uniforms</strong>.</p>
 
 	</div></section>
 
@@ -87,8 +82,8 @@ void main()
 	<pre><code class="glsl">
 void main() 
 {
-	// output is RGBA
-	gl_FragColor = vec4(1.0,1.0,1.0,1.0);
+	// output is RGBA format
+	gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }
 </code></pre>
 <div class='caption'>Fragment Shader</div>
@@ -99,7 +94,7 @@ void main()
 
 	<h3>Creating Materials</h3>	
 
-	<p>THREEjs comes with a bunch of existing materials like the <code>MeshBasicMaterial</code> we've already used. We can also create our own materials from our own shader code using <code>ShaderMaterial</code> like so.</p>
+	<p>THREEjs comes with preset materials like the <code>MeshBasicMaterial</code> we've already used. It's also possible  to create custom materials using <code>ShaderMaterial</code> like so.</p>
 
 	<pre><code class="js">
 var vertex_shader = "void main() {vec4 p = vec4(position, 1.0); p = projectionMatrix * modelViewMatrix * p; gl_Position = p; };"

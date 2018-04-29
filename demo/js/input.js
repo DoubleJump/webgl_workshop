@@ -1,3 +1,4 @@
+// Used to store the state of each keyboard key
 var KeyState = 
 {
 	RELEASED: 0,
@@ -6,6 +7,7 @@ var KeyState =
 	HELD: 3,
 }
 
+// Look up table for ASCII key codes
 var Keys = 
 {
 	TOUCH: -1,

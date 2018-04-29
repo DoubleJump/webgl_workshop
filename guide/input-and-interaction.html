@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/syntax.css">
+  <link href="https://fonts.googleapis.com/css?family=Cabin:700|Inconsolata:400,700|Open+Sans:400,700" rel="stylesheet">
+  <title></title>
+</head>
+
+<body>
+
+<header>
+	<nav>
+		<h3>Sections</h3>
+	</nav>
+</header>
+
+<article>
+
+	<h1>Input &amp; Interaction</h1>
+	<img class='hero' src='img/scene.jpg'>
+	<section><div class='content'>
+
+	<p>Up until this point we've been drawing a static box, which is kinda boring. Let's start adding some movement.</p>
+
+	<h3>User Input</h3>
+
+	<p>On the web you typically check for user input by setting up <code>eventListeners</code> and calling a function whenever something happens. In realtime apps  input is usually happening constantly so it's easier to check for input within the update loop.</p>
+
+	<pre><code class="js">if(key_held(Keys.A))
+{
+	app.cube.rotation.y -= 10;
+}</code></pre>
+	<div class='caption'>Checking for input using polling methods</div>
+
+	<p>To enable this we still need to set up the event listeners but we'll use them to update a global 'input state' that can be checked at any point. Rather than walk through the code here it'll be easier to look through the <code>input.js</code> file yourself and view the comments. Now is also a good time include input.js by uncommenting it from the bottom of <code>index.html</code>.</p>
+	
+	<pre><code class="html">&lt;script src="js/three.min.js"&gt;&lt;/script&gt;
+&lt;script src="js/input.js">&lt;/script&gt;
+&lt;script src="js/app.js">&lt;/script&gt;</code></pre>
+	<div class='caption'>Make sure to include the input.js script</div>
+
+	<p>We also need to initialise the input events by calling <code>Input()</code> in the start function.</p>
+
+	<pre><code class="js">function start() 
+{
+	//.....
+
+	app.input = Input();
+
+	//....
+}</code></pre>
+	<div class='caption'>Initialising the input manager</div>
+	
+
+	<h3>Spinning the Cube</h3>
+
+	<p>Now we have access to some input lets make it so we can spin the cube by clicking and dragging on the page. <code>Delta</code> is another, shorter way of saying 'change' so <code>mouse.delta.x</code> is how far the mouse has moved horizontally. <code>dt</code> is a common shorthand for 'delta time' or the amount of time that has passed since the last update loop and is calculated by THREEjs' clock. We multiply our mouse movement by this value to smooth out minor differences in frame rate.</p>
+
+	<pre><code class="js">// If we are dragging set the spin speed
+// to amount og horizontal mouse movement
+if(key_held(Keys.MOUSE_LEFT))
+	cube.spin_speed = input.mouse.delta.x * dt;
+
+cube.rotation.y += cube.spin_speed;
+
+// Slow the spinning down over time
+cube.spin_speed *= 0.91;</code></pre>
+
+	</div></section>
+
+</article>
+
+<script src="js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="js/guide.js"></script>
+
+</body>
+</html>

@@ -40,7 +40,6 @@ function preload()
 		matcap: {value: null },
 		highlight: {value: 0.0},
 		ao: {value: null},
-		normal_map: {value: null},
 	});
 
 	load_shader('shadow', 'glsl/shadow.glsl',
@@ -82,9 +81,7 @@ function start()
 	// Spinner
 
 	var spinner = new THREE.Group();
-	app.spin_scale = 0;
-	spinner.velocity = 0;
-	spinner.spinning = false;
+	spinner.spin_speed = 0;
 	app.spinner = spinner;
 
 	// Headphones
@@ -96,24 +93,17 @@ function start()
 	// Casing
 
 	var casing_material = materials.matcap.clone();
-	casing_material.setAll
-	({
-		matcap: textures.matcap_violet,
-		ao: textures.ambient_occlusion,
-		normal_map: textures.normal,
-	});
+	casing_material.uniforms.matcap.value = textures.matcap_violet;
+	casing_material.uniforms.ao.value = textures.ambient_occlusion;
+
 	var casing = new THREE.Mesh(meshes.casing, casing_material);
 	casing.name = 'casing';
 
 	// Speakers
 
 	var speakers_material = materials.matcap.clone();
-	speakers_material.setAll
-	({
-		matcap: textures.matcap_violet,
-		ao: textures.ambient_occlusion,
-		normal_map: textures.normal,
-	});
+	speakers_material.uniforms.matcap.value = textures.matcap_violet;
+	speakers_material.uniforms.ao.value = textures.ambient_occlusion;
 
 	var speakers = new THREE.Mesh(meshes.speakers, speakers_material);
 	speakers.name = 'speakers';
@@ -121,12 +111,8 @@ function start()
 	// Pads
 
 	var pads_material = materials.matcap.clone();
-	pads_material.setAll
-	({
-		matcap: textures.matcap_grey,
-		ao: textures.ambient_occlusion,
-		normal_map: textures.normal,
-	});
+	pads_material.uniforms.matcap.value = textures.matcap_grey;
+	pads_material.uniforms.ao.value = textures.ambient_occlusion;
 
 	var pads = new THREE.Mesh(meshes.pads, pads_material);
 	pads.name = 'pads';
@@ -134,12 +120,8 @@ function start()
 	// Cap
 
 	var cap_material = materials.matcap.clone();
-	cap_material.setAll
-	({
-		matcap: textures.matcap_white,
-		ao: textures.ambient_occlusion,
-		normal_map: textures.normal,
-	});
+	cap_material.uniforms.matcap.value = textures.matcap_white;
+	cap_material.uniforms.ao.value = textures.ambient_occlusion;
 
 	var cap = new THREE.Mesh(meshes.cap, cap_material);
 	cap.name = 'cap';
@@ -214,9 +196,15 @@ function update(t)
 {
 	requestAnimationFrame(update);
 	
+	// dt or 'delta time' is the amount of time
+	// since the last update. We can use this value
+	// to scale our inputs so they smooth out 
+	// any variations in framerate
+
 	var dt = app.time.getDelta();
 	debug_camera_movement(app.camera, dt);
 	update_spinner(dt);
+	update_raycaster();
 	app.renderer.render(app.scene, app.camera);
 
 	update_input();
@@ -226,32 +214,23 @@ function update_spinner(dt)
 {
 	var spinner = app.spinner;
 
-	// update the spinner scale which is controlled
-	// by the GSAP animations
-	spinner.scale.setScalar(app.spin_scale);
-
-	if(key_down(Keys.MOUSE_LEFT) &! spinner.spinning)
-		spinner.spinning = true;	
-
-	if(key_up(Keys.MOUSE_LEFT))
-		spinner.spinning = false;
-
 	// If we are dragging set the spin velocity
 	// to amount og horizontal mouse movement
-	if(spinner.spinning)
-		spinner.velocity = input.mouse.delta.x * dt;
+	if(key_held(Keys.MOUSE_LEFT))
+		spinner.spin_speed = input.mouse.delta.x * dt;
 
 	// Stop the spinner spinning too fast
-	spinner.velocity = clamp(spinner.velocity, -0.5,0.5);
-	spinner.rotation.y += spinner.velocity;
+	spinner.spin_speed = clamp(spinner.spin_speed, -0.5,0.5);
+	spinner.rotation.y += spinner.spin_speed;
 
 	// Slow the spinner down over time
-	spinner.velocity *= 0.91;
+	spinner.spin_speed *= 0.91;
 }
 
-function update_raycaster(dt)
+function update_raycaster()
 {
 	var marker = app.ui.marker;
+	var marker_text = app.ui.marker_text;
 	var camera = app.camera;
 	var headphones = app.headphones;
 	var components = headphones.children;

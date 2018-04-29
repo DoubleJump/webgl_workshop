@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/syntax.css">
+  <link href="https://fonts.googleapis.com/css?family=Cabin:700|Inconsolata:400,700|Open+Sans:400,700" rel="stylesheet">
+  <title></title>
+</head>
+
+<body>
+
+<header>
+	<nav>
+		<h3>Sections</h3>
+	</nav>
+</header>
+
+<article>
+
+	<h1>Blender Exporter</h1>
+	<img class='hero' src='img/scene.jpg'>
+	<section><div class='content'>
+
+	<p>Now's a good time to move on from our faithful cube and onto something a bit more interesting. We're going to export our headphone parts from Blender.</p>
+
+	<h3>Installing the Addon</h3>
+
+	<p>One (of the many) ways to get meshes into THREEjs is to use the exporter addon for Blender. This isn't included by default so you'll need to follow the steps below to install it.</p>
+
+	<div class='placeholder'>INSTALL STEPS</div>
+	<div class='caption'>Viewport Coordinates</div>
+
+
+	<h3>Exporting Meshes</h3>
+
+	<p>With that out of the way go ahead and open <code>headphones.blend</code>. You'll notice the model is built out of separate parts. We're going to export each of parts separately like in the video below.</p>
+
+	<div class='placeholder'>EXPORT STEPS</div>
+	<div class='caption'>Exporting a mesh from Blender</div>
+
+	<h3>Importing Meshes</h3>
+
+	<p>Importing meshes is the same process as texture maps just replacing <code>TextureLoader</code> with <code>JSONLoader</code>.</p>
+
+	<pre><code class="js">function load_mesh(name, url)
+{
+	app.assets.total++;
+	app.assets.load_count++;
+
+	var loader = new THREE.JSONLoader();
+	loader.load
+	(			
+		url,
+		function(geometry, materials) 
+		{
+			app.assets.meshes[name] = geometry;
+			app.assets.load_count--;
+			check_assets_loaded();
+		}
+	);
+}
+
+function preload()
+{
+	// ...
+
+	load_mesh('casing', 'json/casing.json');
+	load_mesh('pads', 'json/pads.json');
+	load_mesh('speakers', 'json/speakers.json');
+	load_mesh('cap', 'json/cap.json');
+
+	// ...
+}</code></pre>
+
+	</div></section>
+
+</article>
+
+<script src="js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="js/guide.js"></script>
+
+</body>
+</html>
